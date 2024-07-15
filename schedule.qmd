@@ -1,0 +1,30 @@
+---
+title: "Syllabus"
+editor: source
+---
+
+You can find the course schedule and literature in the overview below. Lectures will take place in .... Labs take places in .... 
+
+
+| Week | What    | Topic                            |
+|------|---------|----------------------------------|
+| 42   | Reading | @hernan_c_word_2018              | 
+|      | Lecture | Introduction to causal inference | 
+|      | Lab     | Exercises                        |
+| 43   | Reading | @schafer_average_2008 (skip Methods 7, 8, and 9)                   |
+|      | Lecture | Rubin Causal Model                    |
+|      | Lab     |                      |
+| 44   | Reading | @roher_thinking_2018                     |
+|      | Lecture | Directed Acyclical Graphs                     |
+|      | Lab     |                      |
+| 45   | Reading | @vanderweele_causal_2016                     |
+|      | Lecture | Marginal Structural Models                     |
+|      | Lab     |                      |
+| 46   | Reading |                      |
+|      | Lecture | Inverse Probability Weighting                    |
+|      | Lab     |                      |
+| 47   | Reading |                      |
+|      | Lecture | Linear SNMMs and G-estimation                      |
+|      | Lab     |                      |
+| 48   | Lab     | Assignment: Preparation |
+| 49   | Lecture | Assignment: Presentations | 

@@ -1,0 +1,6 @@
+---
+title: "Introduction to Causal Inference using Observational Data in the Social Sciences"
+---
+
+This is the course website for "Introduction to Causal Inference using Observational Data in the Social Sciences" (winter term 24/25), which is an optional seminar of the module "CM 6: Special topics in Psychology" of the "Psychology" master program at Humboldt-Universität. Course materials are distributed through this website, and through the accompanying Moodle course. 
+

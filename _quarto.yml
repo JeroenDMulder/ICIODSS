@@ -1,0 +1,47 @@
+project:
+  type: website
+  title: "CIODSS (24/25)"
+  output-dir: _site
+
+website:
+  title: "CIODSS (24/25)"
+  page-navigation: true
+  sidebar:
+    style: floating
+    contents:
+      - href: index.qmd
+        text: Introduction
+      - section: "This Course"
+        contents: 
+          - href: description.qmd
+            text: Description
+          - href: schedule.qmd
+            text: Schedule
+      - section: "Lectures and labs"
+        contents: 
+          - href: week1.qmd
+            text: "Week 1"
+          - href: week2.qmd
+            text: "Week 2"
+          - href: week3.qmd
+            text: "Week 3"
+          - href: week4.qmd
+            text: "Week 4"
+          - href: week5.qmd
+            text: "Week 5"
+          - href: week6.qmd
+            text: "Week 6"
+          - href: week7.qmd
+            text: "Week 7"
+      - href: assignment2.qmd
+        text: "Assignment"
+            
+        
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
