@@ -1,0 +1,99 @@
+---
+title: "Assignment"
+subtitle: "Introduction to Causal Inference using Observational Data in the Social Sciences"
+editor: source
+---
+
+The purpose of this assignment is for you to demonstrate knowledge of the phases for empirical causal research, and the ability to apply this knowledge to longitudinal, nonexperimental empirical data data. This assignment is done in groups of 3 to 4 students, and should result in a presentation in which you explain your causal inference process, the decisions that were made throughout, and the analysis results. The assignment, grading scheme, and deadlines are explained in more detail below. 
+
+## Preparation
+In the assignment, you are asked to formulate a causal research question concerning joint effects (Phase I), identify the causal estimand (Phase II), and estimate the effect of interest (Phase III). For phases II and III, you need an empirical dataset. Therefore, you should first find longitudinal, nonexperimental empirical data. These data must include:
+
+1. a time-varying (at least two time points), *categorical* exposure.
+2. a continuous or binary end-of-study outcome. This outcome can come from a time-varying outcome, from which you select an outcome-measurement after the last exposure-time; or an outcome that was measured only once, but after the last exposure-time (e.g., a distal outcome, or follow-up).
+3. at least two time-varying covariates (either continuous or categorical).
+4. at least one baseline covariate (either continuous or categorical).
+
+Some possible sources for empirical data are listed below, but you are free to use any other source for data. 
+
+- The Longitudinal Internet Studies for Social Sciences (LISS) panel. Note that for using the LISS data, each student analyzing LISS data has to fill out a [LISS statement](https://statements.centerdata.nl/liss-panel-data-statement). Only then you get access to the data. You are not allowed to share data among each other. 
+- [Datadryad](https://datadryad.org/search). Note that this data finder is more focused on biomedical data. 
+- [Google's data search functionality](https://datasetsearch.research.google.com/).
+
+You are advised to be somewhat "smart"/practical in your choice of dataset. For example, in practice, ideally, you come up with a well-defined research question before you collect data. However, for this assignment you need to make sure that you can actually obtain empirical data that can be used for investigating the research question. Therefore, you are advised to first explore some of the freely available empirical data that exist, before finalizing a causal research question. Furthermore, it might be advisable to find a dataset that includes at least one or two of the covariates that you should adjust for (based on reasoning in Phase II) in your statistical analyses. 
+
+## Assignment
+For this assignment, go through all the phases of a causal research project. You do this based on a causal research question that you formulate in Phase I, and using the empirical dataset that you selected. In the end, you have to present your progress throughout these phases (and the decisions that you made herein) in a 15-minute presentation (including 2 minutes of questions and answers). Below you can find the steps that you should take to complete the assignment. 
+
+### Phase I: Formulation
+Formulate a well-defined causal research question concerning joint effects and an end-of-study outcome. Formalize this question as a contrast of potential outcomes, and as a marginal structural model (MSM). You should additionally specify:
+
+- The target population (i.e., what are characteristics of the group of individuals that you want to make inferences about). Also check if your selected empirical data actually contain individuals that are part of your target population. 
+- Whether your research question concerns an ACE, an ACE$_{0}$, or an ACE$_{1}$. 
+- The specific exposure regimes that you want to contrast, including how you want to contrast these regimes (e.g., a risk difference, risk ratio). 
+- The outcome, including how, and when this is measured (i.e., the time interval between exposures and the end-of-study outcome);
+- How the MSM relates to your potential outcomes, and which causal assumptions (if any) are embedded in your MSM.
+
+For assessing the causal identification assumptions in Phase II, it helps if you are very specific here concerning the above points.  
+
+### Phase II: Identification
+Assess the identifiability of the causal estimand by evaluating the causal identification assumptions of sequential conditional exchangeability, sequential consistency, and sequential positivity. For sequential conditional exchangeability: 
+
+- Draw a causal directed acyclical graph (DAG) to encode the causal assumptions of the causal process under study. This causal DAG should include *nodes* representing the exposures, the baseline and time-varying covariates, and the end-of-study outcome; and *edges* to represent the causal relationships between nodes. Discuss which causal assumptions are encoded in the causal DAG. 
+- Based on the causal DAG, discuss which covariates you need to adjust for. 
+- Evaluate whether or not you can actually adjust for these covariates using the empirical dataset you selected (i.e., are all covariates that you want to adjust for actually observed?). 
+
+For (sequential) consistency: 
+
+- Discuss if you think that the exposure at a particular time point is sufficiently well-defined. For example, is it clear what a (potentially hypothetical) intervention on the exposure entails? Do there exist multiple versions of such an intervention? If so, are these multiple versions of intervention expected to have different effects, and do the empirical data contain information to distinguish between these different versions of interventions? 
+
+For (sequential) positivity:
+
+- Discuss whether or not there is a policy or condition that prevents particular individuals from obtaining the exposure (this would be a violation of structural positivity, in which, even with infinite data, positivity cannot be achieved).
+- Check, using density plots of propensity scores, whether or not there is empirical positivity. 
+
+Note that the goal of this phase is not for you to ensure perfect identifiability at all costs. Instead, this phase is meant for researchers to critically reflect on the plausibility of the causal identification assumptions given the causal estimand and the empirical data, and to clearly state the (additional) assumptions under which identification can be achieved. 
+
+### Phase III: Estimation
+Now that you have evaluated the plausibility of the causal identification assumptions, you can attempt to estimate the effect of interest. First, you should prepare your data for analysis. This might involve:
+
+1. Merging multiple datasets (e.g., if you have separate datasets for separate measurement waves). 
+2. Cleaning the dataset: Removing of individuals with impossible values on exposures, the outcome, and covariates; removing of individuals that do not belong to the target population; selection of individuals that all adhere to the same version of treatment (if there exist multiple versions of treatment). 
+3. Dealing with missing data. You can decide to do a complete-case analysis (not ideal, but allowed for this assignment), or to use a single-imputation using the `mice` R-package. The latter option might be advisable when a complete-cases analysis results in too small a sample. Handling of missing data is not the focus of this assignment and course, so please do not spend too much time on this. 
+
+Next, create balancing weights for the time-varying exposures:
+
+1. First assess initial imbalance at each exposure-time. 
+2. Estimate propensity scores, and use these for creating a balanced sample by weighting. Discuss (a) which method/model you used to create the propensity scores, (b) which type of inverse probability weights you created, and (c) the quality of these weights. 
+3. Assess imbalance in the balanced sample. If the sample is not balanced yet after weighting, discuss possible reasons why you might not have been able to balance sample based on the propensity scores. Additionally, mention other steps you can take to try and balance the sample, and see if these work. 
+
+Finally, estimate the joint effects after weighting, and attempt to answer your research question. Briefly summarize again which assumptions the validity of your answer relies on, and whether or not these assumptions are plausible.  
+
+## Presentation
+This assignment should result in a presentation in which you (and your group members) present your progress throughout these phases for the causal research question that you have come up with, and the empirical data that you have selected. In particular, focus on the decisions that were made throughout these phases, and critically reflect on the strengths and weaknesses of your approach. The below tables gives an indication of the amount of time that these various parts approximately should take up in the presentation. 
+ 
+| What                                      | Time (min.) |
+|-------------------------------------------|:-----------:|
+| **Phase I: Introduce your research question** | 2     |
+| \ \ Target population                   |             | 
+| \ \ ACE, ACE$_{0}$, or ACE$_{1}$?       |             | 
+| \ \ Exposure regimes                    |             | 
+| \ \ Outcome                             |             | 
+| \ \ MSM                                 |             | 
+| **Phase II: Assess identifiability**    | 4           | 
+| \ \ Exchangeability                     |             |
+| \ \ Consistency                         |             |
+| \ \ Positivity                          |             | 
+| **Phase III: Estimate effect of interest**  | 7       | 
+| \ \ Initial imbalance                   |             |
+| \ \ Estimate propensity scores          |             |
+| \ \ Post-balancing imbalance            |             | 
+| \ \ Estimate causal effect              |             | 
+| **Q&A**                                 | 2          |
+
+## Deadlines
+Each group presents their assignment during the meeting on Thursday December 12th. All group members should be present, and take part in the actual presentation (unless otherwise agreed with the course coordination). Additionally, each group should send an email (1 per group) to the teacher, containing (a) the slides of the presentation, (b) annotated and executable R code that was used to analyze the data, and (c) names and student numbers of all the group members. The deadline for this email is Thursday December 12th, at 09:00.
+
+Group members are expected to work together on the assignment during the lab meetings (where they are able to ask the lab teacher questions), and in between these meetings as well (please arrange meetings for this yourself).
+
+

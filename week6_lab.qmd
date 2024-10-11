@@ -1,0 +1,302 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
+author: 
+- Jeroen D. Mulder
+editor: source
+bibliography: references.bib
+---
+
+In this lab, you practice with Phase III of a causal research project, specifically estimating causal effects of time-varying exposures using inverse probability weighting (IPW)-estimation of the parameters in a marginal structural model (MSM). To this end, we will be using simulated data again. 
+
+We will investigate the joint effect of a time-varying binary exposure (measured at three occasions) on a continuous distal outcome. Examples of this are the joint effect of
+
+- church attendance on depressive symptoms (measured continuously, rather than dichotomously as in the empirical example);
+- Ritalin use or physical punishment (by the parents) on behavioral problems (of the child);
+- establishing a gender quota in a company on the percentage of women working there; and
+- drug use on academic achievement in adolescents. 
+
+In all these cases, the exposure is a binary variable that may vary over time, and that may affect the final outcome at the end of the study directly or indirectly through shaping earlier realizations of the outcome variable. 
+
+## Structural Relations (truth)
+
+Consider the R code below that we will use to simulate data.  
+
+```{r data-generation, echo=T, eval=T, message=F, include=T}
+N <- 1000000
+C <- rnorm(N)
+
+data <- data.frame(C)
+
+# Simulate data for first wave
+data$Y1 <- .4*C + rnorm(N)
+data$X1 <- rbinom(n = N, size=1, prob = plogis(C))
+
+# Simulate data for the second wave
+data$Y2 <- 0.1 * data$Y1 + 0.3 * data$X1 + rnorm(N)
+data$X2 <- rbinom(n = N, size=1, prob = 
+		plogis(-.8 + 0.2 * data$Y1 + 1 * data$X1))
+
+# Simulate data for the third wave
+data$Y3 <- 0.1 * data$Y2 + 0.3 * data$X2 + 
+		0.8 * data$Y1 + 0.15 * data$X1 + rnorm(N)
+data$X3 <- rbinom(n = N, size=1, prob = 
+		plogis(-.8 + 0.2 * data$Y2 + 1 * data$X2 +
+			0.1 * data$Y1 + 0.8 * data$X1))
+
+# Simulate the final outcome
+data$final.Y <- 0.1 * data$Y3 + 0.3 * data$X3 + 0.8 * data$Y2 + 
+			0.15 * data$X2 + rnorm(N)
+
+# Check the data file
+head(data)
+```
+
+::: {.callout-note collapse="true" icon=false}
+## Draw the causal DAG that is encode in the R code above.
+
+![Causal DAG based on the R code.](./figures/causalDAG.jpeg) 
+
+This figure does not depict linear or logistic regressions per se, but instead visualizes the causal (structural) relations between the variables. However, since we generated the data ourselves, we know that these relationships are in fact linear and logistic. 
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{1}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{1}$ on $Y_{4}$.
+
+```{r CDE1-population, echo=T, eval=T, message=F}
+# X1 -> Y2 -> Y3 -> Y.final
+0.3*0.1*0.1
+
+# X1 -> Y2 -> Y.final
+0.3*0.8
+
+# X1 -> Y3 -> Y.final
+0.15*0.1
+
+# Total CDE of X1 on Y4
+0.3*0.1*0.1 + 0.3*0.8 + 0.15*0.1
+
+```
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{2}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{2}$ on $Y_{4}$.
+
+```{r CDE2-population, echo=T, eval=T, message=F}
+# X2 -> Y3 -> Y.final
+0.3*0.1
+
+# X2 -> Y.final
+0.15
+
+# Total CDE of X2 on Y4
+0.3*0.1 + 0.15
+
+```
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{3}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{3}$ on $Y_{4}$. 
+
+```{r CDE3-population, echo=T, eval=T, message=F}
+# X3 -> Y.final
+0.3
+
+# Total CDE X3 on Y4
+0.3
+```
+:::
+
+## Standard linear regression
+
+We want to estimate the effect of exposure over occasions 1 to 3 on an end-of-study outcome $Y_{4}$. The previous measures of $Y$ can be regarded as time-varying covariates. 
+
+::: {.callout-note collapse="true" icon=false}
+
+## For $Y_{1}$, $Y_{2}$, and $Y_{3}$, discuss whether one should control for them, or not. 
+
+Variable $Y_{1}$ is only a confounder between exposure and the outcome; hence, we should control for it. 
+
+The variable $Y_{2}$ has two roles in the causal structure. It is a *confounder* of the relation between $X_{3}$ and $Y_{4}$: $X_{3} \leftarrow Y_{2} \rightarrow Y_{3} \rightarrow Y_{4}$. This would imply we should control for it to avoid confounder bias. It is also a mediator for the effect of $X_{1}$ on $Y_{4}$: $X_{1} \rightarrow Y_{2} \rightarrow Y_{3} \rightarrow Y_{4}$ and $X_{1} \rightarrow Y_{2} \rightarrow X_{3} \rightarrow Y_{4}$. This would imply we should *not* control for it, to avoid overcontrol bias (that is, bias that arises when we block an indirect path from the cause to the effect). Controlling for $Y_{2}$ would remove part of the total causal effect $X_{1}$ has on $Y_{4}$. This is a catch-22.
+
+The variable $Y_{3}$ is only a mediator in this model: $X_{1} \rightarrow Y_{2} \rightarrow Y_{3} \rightarrow Y_{4}$; $X_{1} \rightarrow X_2 \rightarrow Y_{3} \rightarrow Y_{4}$; $X_{1} \rightarrow Y_{3} \rightarrow Y_{4}$; $X_{2} \rightarrow Y_{3} \rightarrow Y_{4}$. So, including $Y_{3}$ as a covariate will lead to overcontrol bias in estimating the controlled direct effects of $X_{1}$ and $X_{2}$. 
+:::
+
+Before we consider a more sophisticated approach to this problem, we begin with considering two simpler models. Each of these is associated with a specific form of bias in estimating the causal effect of the time-varying exposure on $Y_{4}$.
+
+::: {.callout-note collapse="true" icon=false}
+
+## Run a regression model with the time-varying covariates included. 
+
+```{r glm1, echo=T, eval=T, message=F}
+out1 <- glm(final.Y ~ C + X1 + X2 + X3 + Y1 + Y2 + Y3, data=data)
+summary(out1)
+```
+
+In this model, we have the problem of over control bias due to controlling for mediators $Y_{2}$ and $Y_{3}$, which blocks  causal paths from the time-varying exposure to the outcome.
+:::
+
+::: {.callout-note collapse="true" icon=false}
+
+## Run a regression model without the time-varying covariates.
+```{r glm2, echo=T, eval=T, message=F}
+out2 <- glm(final.Y ~ C + X1 + X2 + X3 + Y1, data=data)
+summary(out2)
+```
+
+This model results in confounder bias because it fails to control for confounders $Y_{1}$ and $Y_{2}$. Note that $Y_{3}$ is not a counfounder in this model, so omitting it is not associated with confounder bias.
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+
+## Compare the results of these two models. 
+
+The results for the effect of $X_1$ to $X_3$ on $Y_{4}$ are quite different across these two models, and they also deviate from the actual effects that we computed based on the truth above:
+
+| Exposure | Model 1 | Model 2 | Truth |
+|----------|:-----:|:------:|:------:|
+| $X_{1}$ | -0.00 | 0.22 | 0.258 |
+| $X_{2}$ | 0.15  | 0.14 |  0.180 |
+| $X_{3}$ | 0.30 | 0.46 | 0.300 |
+
+We know that neither model is correct: Model 1 blocks causal paths through $Y_2$ and $Y_3$ (overcontrol bias), while model 2 fails to account for confounding due to $Y_1$ and $Y_2$.
+:::
+
+## IPW estimation
+
+We will now use the marginal structural model as described by @vanderweele_causal_2016. 
+
+::: {.callout-note collapse="true" icon=false}
+## First, compute the propensity score (i.e., the probability of receiving exposure) at wave 1, wave 2, and 3 *using logistic regression*. For each of these, you should include all prior versions of $X$ and the covariate $Y$, and all time-invariant (or baseline) covariates (here $C$). 
+
+```{r PSs, echo=T, eval=T, message=F}
+# Compute the propensity scores at wave 1 
+res.X1 <- glm(X1 ~  C, family = binomial(), data = data)
+ps1 <- predict(res.X1, type = "response")
+data$ps1 <- ps1
+
+# Compute the propensity scores at wave 2 
+res.X2 <- glm(X2 ~  C + X1 + Y1, family = binomial(), data = data)
+ps2 <- predict(res.X2, type = "response")
+data$ps2 <- ps2
+
+# Compute the propensity scores at wave 3 
+res.X3 <- glm(X3 ~ C + X1 + X2 + Y1 + Y2, family = binomial(), data = data)
+ps3 <- predict(res.X3, type = "response")
+data$ps3 <- ps3
+```
+
+:::
+
+Note that strictly speaking, for this particular model (as shown in the DAG), we would not need to include C to estimate the propensity scores at wave 2 and wave 3. 
+
+::: {.callout-note collapse="true" icon=false}
+
+## Explain why not, and whether it matters that we include it here.
+
+$C$ only has direct effects on X1 and Y1; since both are included as predictors for the propensity scores at wave 2 and wave 3, the effect of $C$ is already controlled for then. However, it does not create a problem to include it; it does not block a indirect path that we would want to remain open (i.e., it is not a mediator), nor does it open a path that should remain closed (i.e., it is not a collider). Including or not including it for `ps2` and `ps3` does not make a difference.
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## Make histograms for the propensity scores of the treated and the untreated at wave 2 and wave 3. What does this show? 
+
+```{r PSs-histogram, echo=T, eval=T, message=F}
+# Plot the propensity scores at each wave
+M<-matrix(c(1:3),1,3, byrow = FALSE)
+layout(M)
+
+for (t in 1:3)
+{	k <- subset(data, select = c(paste0("X", t)))
+	data.1 <- data[ which(k == 1), ]
+	data.0 <- data[ which(k == 0), ]
+	ps.t.1 <- subset(data.1, select = c(paste0("ps", t)))
+	ps.t.0 <- subset(data.0, select = c(paste0("ps", t)))
+	hist0 <- hist(as.numeric(ps.t.1[[1]]), breaks=30, plot=FALSE)
+	hist1 <- hist(ps.t.0[[1]], breaks=30, plot=FALSE)
+	title <- paste0("Propensity scores at wave ", t)
+	plot( hist1, col=rgb(0,0,1,1/4), xlim=c(0,1), 
+    		xlab="Propensity score", main=title)  
+	plot( hist0, col=rgb(0,1,0,1/4), xlim=c(0,1), add=T) 
+}
+```
+
+It shows that the distribution of the propensity scores for the treated and the untreated overlap well (assumption of positivity), at each occasion.
+:::
+
+Recall that the *unstabilized* inverse probability weights at a specific time point are computed as
+$$
+W_{it} = X_{it} \frac{1}{P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}]} + (1 - X_{it})\frac{1}{(1 - P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}])}.
+$$ 
+From these wave-specific weights, compute the overall weight, by taking the product of the wave-specific weights. 
+
+::: {.callout-note collapse="true" icon=false}
+## Compute the weights. 
+
+```{r IPW, echo=T, eval=T, message=F}
+# Compute the inverse probability weights at waves 1, 2 and 3
+data$ipw1 <- ifelse(data$X1 == 1, 1 / data$ps1, 1 / (1 - data$ps1))
+data$ipw2 <- ifelse(data$X2 == 1, 1 / data$ps2, 1 / (1 - data$ps2))
+data$ipw3 <- ifelse(data$X3 == 1, 1 / data$ps3, 1 / (1 - data$ps3))
+
+# Compute the total ipw
+data$ipw.123 <- data$ipw1 * data$ipw2 * data$ipw3 
+```
+
+:::
+
+Finally, we can run a regression model with $Y_{4}$ as the outcome variable, and $X_1$, $X_2$, $X_3$, and $Y_1$ as its predictors, using the total weights computed above.
+
+::: {.callout-note collapse="true" icon=false}
+
+## Estimate the parameters of the MSM.
+
+```{r effect-estimation, echo=T, eval=T, message=F}
+# Regression with inverse probability weighting with X1, X2, X3 and Y1 as its predictors
+out3 <- glm(final.Y ~ X1 + X2 + X3 + Y1, 
+		weights = ipw.123, data=data)
+
+# Another regression with inverse probability weighting which now also includes the baseline confounder (just 
+# for comparison)
+out4 <- glm(final.Y ~ C + X1 + X2 + X3 + Y1, 
+		weights = ipw.123, data=data)
+
+# Another regression with inverse probability weighting which includes C but not Y1
+out5 <- glm(final.Y ~ C + X1 + X2 + X3, 
+		weights = ipw.123, data=data)
+
+summary(out3)
+summary(out4)
+summary(out5)
+```
+
+It shows that whether the baseline covariate $C$ is included or not, makes no difference. This is because it has already been accounted for when computing the inverse probability weights. Furthermore, when considering the parameter estimates here it can be seen these are in fact very close to the true effects, which were computed at the start based on the parameter values that were used to simulate the data (i.e., the Truth).
+:::
+
+
+## Conclusion
+
+Compare the results from the marginal structural model to the results from the other two models. 
+
+::: {.callout-note collapse="true" icon=false}
+## What does this show you?
+
+| Exposure | Model 1 | Model 2 | Model 3 | Truth |
+|----------|:-------:|:-------:|:-------:|:-----:|
+| $X_{1}$ | -0.00 | 0.22 | 0.26 | 0.258 |
+| $X_{2}$ | 0.15  | 0.14 | 0.18 |  0.180 |
+| $X_{3}$ | 0.30 | 0.46 | 0.30 | 0.300 |
+
+Model 1 includes $Y_2$ and $Y_3$ as a covariate, and thus leads to overcontrol bias when estimating the effects of $X_1$ and $X_2$. It only shows the direct effects of the time-varying exposure, not the indirect effects.
+
+Model 2 does not include $Y_2$ and $Y_3$ in any manner. Therefore, this model leads to confounder bias, since $Y_2$ is a confounder for the $X_3 \rightarrow Y_{4}$ relation.
+
+Model 3 is used to account for confounders, without blocking indirect paths. Hence, it should inform us on the joint exposure effect of the time-varying exposure. Its estimates are very close to the true values (based on the model parameters that we  used to simulated the data with).
+:::
+
+Why IPW estimation of an MSM works, and how it accounts for time-dependent confounding without blocking the relevant mediation paths, is not easy to see, or to even get some intuition for. But recall that in week 2 we learned that by using IPW, we create a balanced sample (also sometimes referred to as a *pseudo population*) that, within a certain level of the confounder, has an equal number of individuals in each exposure group. That implied that in this balance sample, we have $P[X_{it} = 1] = 0.5$ for everyone. This balancing property of IPW is therefore a way to mimic an RCT. Balancing thus removes the arrows that point into the exposure nodes (again, as would be the case in an RCT).   
+
+## Some useful R packages
+For these exercises we have made use of base R functions. This is helpful to get a better understanding of how IPW estimation actually works. However, there exist many useful packages that can help with assessing covariate (im)balance, and with creating inverse probability weights. I highly recommend the packages `cobalt` and `WeightIt` by Noah Greifer, as they have excellent documentation online that can help you use more advanced IPW-related techniques. You might consider using these packages for assignment 2. 

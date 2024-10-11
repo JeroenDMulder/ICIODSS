@@ -1,0 +1,320 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 4: Rubin Causal Model (Part II)"
+author: 
+- Ellen L. Hamaker
+- Jeroen D. Mulder
+editor: source
+bibliography: references.bib
+---
+
+In these exercises, we continue with the analyses discussed in @schafer_average_2008, focusing on Methods 4 to 6. 
+
+## Setup
+In this practical you will make use of various R packages. If you haven’t already, install the packages `tableone`, `MatchIt`, and `survey` using `install.packages(c("tableone", "MatchIt", "survey"))`. 
+
+Load the data, which are in the data file called `SchaferKangData.dat`. Take a look at the data set. See Table 3 in @schafer_average_2008 for a description of the variables.
+
+```{r setup, eval = FALSE}
+df <- read.table("SchaferKangData.dat", header = TRUE)
+head(df, n = 10)
+```
+There are various alternative techniques that are all based on using the propensity scores: This is an individual’s probability of treatment based on their scores on the covariates, $P(X=1|Z=Z)$. If we know how likely a person was to receive treatment, we can use this information to mimic a randomized controlled trial (in which everyone has the same probability of receiving treatment). @schafer_average_2008 consider three common techniques for this:
+
+- Method 4: Matching, in which we try to create pairs of a treated and an untreated individual that have the same propensity score. 
+- Method 5: Inverse probability weighting, in which we create a pseudo-population that is balanced on the covariates. 
+- Method 6: Subclassification or stratification, in which we create strata in which there are no (meaningful) differences in the covariates left. 
+
+Regardless of the choise of method, we need to estimate propensity scores first. 
+
+## Estimate Propensity Scores
+To compute a propensity score, run a logistic regression model in which the treatment variable $X$ (which has values 0 and 1) is the outcome variable, and the covariates are the predictors. Make sure to save the probability for each person for scoring 1 on X (here `DIET`). You can use the `glm()` function from the stats package for this, setting the `family` argument to `family = binomial()`. 
+
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Logistic Propensity Score Model
+
+```{r PS-logistic, eval = FALSE}
+# Run logistic regression analysis
+mod_logistic <- glm(
+  formula = DIET ~ DISTR.1 + as.factor(BLACK) + as.factor(NBHISP) + GRADE + 
+    SLFHLTH + SLFWGHT + WORKHARD + GOODQUAL + PHYSFIT + PROUD + LIKESLF + 
+    ACCEPTED + FEELLOVD,
+  family = binomial(), 
+  data = df
+)
+
+# Obtain a prediction of the probability of treatment (i.e., DIET = 1) 
+ps <- predict(mod_logistic, type = "response")
+
+# Add this predicted probability to the data file
+df$ps <- ps
+
+# Look at the data file 
+round(df[1:10,], 2)
+```
+
+The last column in the data file now contains the predicted probability of being treated, based on the covariates.
+:::
+
+Now that we have the propensity scores, we should first consider the distribution of propensity scores in each of the treatment groups separately, to determine whether there is overlap between the propensity scores of the two groups.
+
+::: {.callout-note icon=false collapse=true}
+
+## Make a histogram to look at this, discuss what you see, and why this is important.
+
+```{r PS-overlap, eval = FALSE}
+# Subset datafile again based on treatment group
+df1 <- df[ which(df$DIET == 1), ]
+df0 <- df[ which(df$DIET == 0), ]
+
+# Generate histograms without plotting
+hist0 <- hist(df0$ps, breaks = 30, plot = FALSE)
+hist1 <- hist(df1$ps, breaks = 30, plot = FALSE)
+
+# Plot histograms
+plot( hist0, col=rgb(0,0,1,1/4), xlim=c(0,1), 
+        xlab="Propensity score", 
+      main="Histogram of propensity scores")  
+plot( hist1, col=rgb(1,0,0,1/4), xlim=c(0,1), add=T) 
+```
+
+What we see is that the distributions of propensity scores of the two groups seem to overlap well, even in the tails. If this would not be the case, that would be an indication that the causal identification assumption of positivity is violated. That is, at each possible combination of the covariates, which is now summarized with the propensity score, there should be both treated and non-treated individuals in our sample.
+:::
+
+Now that we have determined the propensity scores and their distributions for the the treated and the non-treated overlap well, we can make use of these scores within different techniques.
+
+## Method 4: Matching
+Matching based on the propensity scores is the first technique in this category that we consider. It is based on finding people in the both treatment groups that have similar propensity scores: The idea is that these individuals are comparable on the entire set of covariates, and can thus be considered randomly assigned to the two condition.
+
+In practice, this is done by taking a person from the smallest of the two groups (here the group for which `DIET=1`), and finding a person in the other group that is most like this person in terms of their propensity score. We can do this using the function `matchit()` from the R package MatchIt. Please note that this will give us slightly different results than those obtained by @schafer_average_2008.
+
+To run the matching function, we plug in the same expression as we used above to obtain the propensity scores, and use `method = "nearest"`:
+
+```{r method4-matchIt, eval = FALSE}
+# Load the package
+library(MatchIt)
+
+# Run matching model
+mod_matched <- matchit(
+  formula = DIET ~ DISTR.1 + as.factor(BLACK) + as.factor(NBHISP) + GRADE + 
+    SLFHLTH + SLFWGHT + WORKHARD + GOODQUAL + PHYSFIT + PROUD + LIKESLF + 
+    ACCEPTED + FEELLOVD, 
+  method = "nearest",  
+  data = df
+)
+
+mod_matched
+```
+
+::: {.callout-note icon=false collapse=true}
+
+## Describe the information that is included in the output.
+
+The results indicate that the original sample consisted of 6000 individuals, and that the matched sample consists of 2440 individuals. This is because the number of treated individuals is 1220, and these were all matched with a non-treated person. 
+
+Note that a different model for the propensity scores (e.g., including interaction terms between two covariates, or non-linear relations by  squaring covariates), would lead to different propensity scores, and these may subsequently lead to different matches. Hence, it is really  model dependent!
+:::
+
+There are two useful plotting options regarding the propensity scores of our matched pairs: `plot(mod_matched, type = "jitter")` and  `plot(mod_matched, type = "hist")`. 
+
+::: {.callout-note icon=false collapse=true}
+
+## Get both plots, and describe what they represent.
+
+The `plot(mod_matched, type = "jitter")` is a plot of the propensity scores of four different subgroups from our original data file:
+
+- Those from the treatment group for whom there was no match.
+- Those from the treatment group for whom there was a match.
+- Those from the control group for whom there was a match. 
+- Those from the control group for whom there was no match. 
+
+It shows that the first group is empty, the last group has relatively low propensity scores, the middle two groups seem pretty similar in terms of their propensity score distribution (as expected, as these are the matched cases).
+
+The `plot(mod_matched, type = "hist")` plot shows the histograms of the propensity scores of the two treatment groups in the original dataset on the left and for the matched groups on the right; it shows that the latter are far more similar than the former (as one would expect).
+:::
+
+To do the analysis on the matched cases only, we need to create a new data file with only the matched cases, using `df_matched <- match.data(mod_matched)`. 
+
+::: {.callout-note icon=false collapse=true}
+
+## Create the Table 1 for this matched data set. What can you conclude?
+
+```{r method4-matchedData, eval = FALSE}
+# Extract new data file from original one
+df_matched <- match.data(mod_matched)
+
+# Compute SMDs using tableone R package
+table1 <- CreateTableOne(
+  vars = c("DISTR.1","BLACK", "NBHISP", "GRADE", "SLFHLTH", "SLFWGHT", 
+           "WORKHARD", "GOODQUAL", "PHYSFIT", "PROUD", "LIKESLF", "ACCEPTED", 
+           "FEELLOVD"), 
+  strata = "DIET", 
+  data = df_matched,
+  test = FALSE
+)
+print(table1, smd = TRUE)
+
+```
+
+Note that the two groups now each have 1220 cases (compared to 4789 and 1220 respectively before). This is because we are now working with only matched cases, and there was a match in the non-treated group for every treated person.
+
+The table shows that the standardized mean differences are all quite small in this matched data set; this means the two groups are now very similar on the covariates, just as one would expect in an RCT. Hence, matching seems to mimic an RCT here---at least with respect to observed covariates; there may still be unobserved confounding.
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Investigate with a t-test whether the means on the outcome variable `DISTR.2` differ among the matched cases.
+
+```{r method4-tTest, eval = FALSE}
+mod_t_matched <- t.test(DISTR.2 ~ DIET, df_matched)
+mod_t_matched 
+```
+
+The ACE is now estimated to be $-0.0222$ and not significantly different from 0, $t(2437.9) = 1.1663$, $p = .244$.
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Compare this result to the mean comparison you did at the start. Explain why the mean differences that you have just determined is an estimate of the ACE$_{1}$ rather than of the ACE.
+
+Initially, the difference was 0.0596, meaning that those who diet ($X=1$) experience *more* distress than those who do not diet ($X=0$). Here the mean difference between the matched cases is $0.703-0.725=-0.022$, meaning that the distress for those who did diet ($X=1$) is actually *lower* than that of those who did not diet ($X=0$).
+
+Note that the matched cases are based on all the girls in our initial sample with $X=1$; hence, we now have the ACE for the treated. This implies that for the subpopulation of dieting girls ($X=1$), actually dieting ($X=1$) seems to result in *less* distress than not dieting ($X=0$). However, the difference is not a significant difference.
+:::
+
+## Method 5: Inverse Probability Weighting
+We can also use inverse probability weighting (IPW). In this case, the estimated propensity scores $\pi_{i}$ are used to determine the probability that an individual $i$ would have received the treatment that they received:
+
+- For the treated ($X_{i} = 1$), this is simply $\hat{\pi}_{i}$. 
+- For the non-treated ($X_{i} = 0$) this is $1 − \hat{\pi}_{i}$.
+
+We can use these probabilities to create weights. The weight are computed by taking the inverse of the propensities (hence, the name). That way, a case that received a treatment that they was very likely to receive, will get a small weight, while a case that received a treatment that they was very unlikely to receive, will get a large weight. Thus, the inverse probability weight indicates the number of persons from the population that this person represents:
+
+- For the treated, this weight is $\frac{1}{\hat{\pi}_{i}$.
+- For the untreated, it is $\frac{1}{1 - \hat{\pi}_{i}$
+
+::: {.callout-note icon=false collapse=true}
+
+## Compute the ACE using IPW. More specifically, use the propensity scores that we estimated earlier, and Equation 20 of @schafer_average_2008. 
+
+```{r IPW-schafer, eval = FALSE}
+# Select the exposure and outcome variables
+Y <- df$DISTR.2
+X <- df$DIET
+
+# Compute the expected potential outcome under X = 1
+mu1hat <- sum( X*Y/ps ) / sum(X/ps)
+
+# Compute the expected potential outcome under X = 0
+mu0hat <- sum( (1-X)*Y/(1-ps) ) / sum((1-X)/(1-ps))
+
+# Take the difference to get ACE
+mu1hat - mu0hat
+```
+
+The latter difference is the estimate of the ACE. Obtaining a p-value for this, is tricky, because the p-values need to correct reflect the uncertainty in both the estimation of the propensity scores, as well as the uncertainty in the estimation of the expected potential outcomes. 
+
+You might wonder how this process works when we don't have a binary outcome, but a continuous one. In the lecture on Marginal Structural Models, we will learn this. For now, it is important that you develop a little bit of an intuition as to why inverse probability weighting works. 
+:::
+
+
+## Method 6: Subclassification
+Subclassification, also known as *stratification* and closely related to the idea of *standardization* in the causal inference literature, is a method that consists of creating classes (strata) based on the propensity scores. The idea is that the individuals within each stratum are rather similar with respect to their propensity score, and thus with respect to the entire set of covariates on which the propensity score is based. If the covariates are well-balanced within each stratum, this is a way to mimic an RCT within each stratum. By subsequently estimating the ACE in each stratum (using a mean comparison such as Method 1, or an ANCOVA or regression analysis such as Method 2), we can determine the causal effect for individuals who are similar with regard to the entire set of covariates (as these are used to determine the propensity scores).
+
+::: {.callout-note icon=false collapse=true}
+
+## Begin with creating five strata based on the propensity scores (for instance, use the function `cut()` in R). Each stratum should contain 20% of the (total number of) observations.
+
+The below R code divides the range of the propensity scores into intervals, and codes these intervals accordingly. 
+
+```{r method6-strata, eval = FALSE}
+df$stratum <- cut(
+  x = df$ps, 
+  breaks = c(quantile(df$ps, probs = seq(0, 1, 0.2))),
+  labels = seq(1:5),
+  include.lowest = TRUE
+)
+```
+
+We can also make a plot of these quantiles. This is based on using the same histogram of the propenisty scores we had before, but now adding vertical lines for where the breaks of the strata are.
+
+```{r method6-strata-visualized, eval = FALSE}
+# Print overlapping plots
+plot(hist0, 
+  col = rgb(0, 0, 1, 1/4), 
+  xlim = c(0, 1),
+  xlab = "Propensity score", 
+  main = "Histogram of propensity scores \nwith quantile breaks"
+)  
+plot(hist1, 
+  col = rgb(1, 0, 0, 1/4), 
+  xlim = c(0, 1), 
+  add = TRUE
+) 
+
+# Save the location of the break points
+br <- c(quantile(df$ps, probs = seq(0, 1, 0.2)))
+
+# Plot the borders of the strata
+abline(v = br[2], col = "black", lwd = 3)
+abline(v = br[3], col = "black", lwd = 3)
+abline(v = br[4], col = "black", lwd = 3)
+abline(v = br[5], col = "black", lwd = 3)
+
+```
+
+This shows that especially the fifth stratum is very wide. In fact, @schafer_average_2008 decide to further split the fourth stratum in two groups, and the fifth in four groups, because these are rather wide. The problem with these wide strata is that you cannot reasonably say that the people who belong to these strata are similar to each other on the covariates. 
+
+We could also further investigate whether we need more strata by looking at the standardized mean differences in each stratum. These should be small, as the idea is that each stratum can be thought of as an RCT in which the assignment to treatment is random, and thus does not depend on any of the covariates.
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Next, compute the ACE in each stratum based on the mean difference.
+
+The below R code performs a t-test in each stratum. 
+
+```{r method6-ttest, eval = FALSE}
+# Initialize matrix to save results in
+results <- matrix(NA, 5, 1)
+
+for (quintiles in c(1:5)) {
+  fit <- t.test(DISTR.2 ~ DIET, data = df[which(df$stratum == quintiles), ])
+  print(fit)
+  
+  # Save difference in means
+  results[quintiles, 1] <- fit$estimate[2] - fit$estimate[1]
+}
+```
+
+This shows that the results differ per stratum: Only in stratum 4 do we find a significant difference. 
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Subsequently, you can compute the overall ACE by taking the average of the stratum-specific ACE's (weighted by the stratum size).
+
+Since our five strata are based on quantiles, the sample size of each stratum will be the same (i.e., a fifth of the total sample size). such that each stratum-specific ACE adds equally to the total. Note that this also means that our ACE estimate will differ somewhat from the ACE estimate reported in Table 6 by Schafer and Kang, as they had further divided the fifth stratum. 
+
+To get the ACE, we simply take the mean of the stratum-specific ACEs:
+
+```{r method6-ACEhat, eval = FALSE}
+mean(results[, 1])
+```
+
+Note that we do not have an SE (nor a p-value) for this estimate. Like with Method 5, this is a bit more complicated to obtain. 
+:::
+
+## Conclusion
+The three methods that we considered in this lab are all based on using the propensity score, that is, the probability of being treated given the covariates. The goal of these techniques is to somehow mimic the situation we get in an RCT, where **the probability of treatment is independent of the covariates**. In matching, this is done by creating pairs of a treated and an untreated person who have (almost) identical propensity scores, resulting in a smaller but balanced dataset; in inverse probability weighting, this is done by weighing each person’s observation by their inverse probability of received treatment, thereby creating a balanced pseudo-population; and in subclassification this is done by creating strata based on the propensity scores such that within each stratum the covariates are balanced. In each approach, we should check whether it balances the covariates, for instance, by considering the standardized mean differences. Other options for assessing covariate imbalance are described by @austin_balance_2009. 
+
+
+
+

@@ -1,10 +1,10 @@
 project:
   type: website
-  title: "CIODSS (24/25)"
+  title: "ICIODSS (24/25)"
   output-dir: docs
 
 website:
-  title: "CIODSS (24/25)"
+  title: "ICIODSS (2024/25)"
   page-navigation: true
   sidebar:
     style: floating
@@ -17,23 +17,45 @@ website:
             text: Description
           - href: schedule.qmd
             text: Schedule
-      - section: "Lectures and labs"
+      - text: -------
+      - section: "Week 1: Introduction and Fundamental Concepts"
         contents: 
-          - href: week1.qmd
-            text: "Week 1"
-          - href: week2.qmd
-            text: "Week 2"
-          - href: week3.qmd
-            text: "Week 3"
-          - href: week4.qmd
-            text: "Week 4"
-          - href: week5.qmd
-            text: "Week 5"
-          - href: week6.qmd
-            text: "Week 6"
-          - href: week7.qmd
-            text: "Week 7"
-      - href: assignment2.qmd
+          - href: week1_literature.qmd
+            text: "Literature"
+          - href: week1_lab.qmd
+            text: "Lab exercises"
+      - section: "Week 2: Directed Acyclical Graphs"
+        contents: 
+          - href: week2_literature.qmd
+            text: "Literature"
+          - href: week2_lab.qmd
+            text: "Lab exercises"
+      - section: "Week 3: Rubin Causal Model (Part I)"
+        contents:
+          - href: week3_literature.qmd
+            text: "Literature"
+          - href: week3_lab.qmd
+            text: "Lab exercises"
+      - section: "Week 4: Rubin Causal Model (Part II)"
+        contents:
+          - href: week4_literature.qmd
+            text: "Literature"
+          - href: week4_lab.qmd
+            text: "Lab exercises"
+      - section: "Week 5: MSMs and Time-Varying Exposures"
+        contents: 
+          - href: week5_literature.qmd
+            text: "Literature"
+          - href: week5_lab.qmd
+            text: "Lab exercises"
+      - section: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
+        contents:
+          - href: week6_literature.qmd
+            text: "Literature"
+          - href: week6_lab.qmd
+            text: "Lab exercises"
+      - text: -------
+      - href: assignment.qmd
         text: "Assignment"
             
         

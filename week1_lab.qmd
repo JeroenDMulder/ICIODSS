@@ -1,0 +1,14 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 1: Introduction and Fundamental Concepts"
+author: 
+- Ellen L. Hamaker
+- Jeroen D. Mulder
+editor: source
+---
+
+To get more acquainted with potential outcomes and formulating causal questions, please do the potential outcome exercises and the causal estimand exercises of the Center for Practice and Research at the Intersection of Information, Society, and Methodology (PRIISM). 
+
+> New York University PRIISM (n.d.). thinkCausal. [https://apsta.shinyapps.io/thinkCausal/](https://apsta.shinyapps.io/thinkCausal/)
+
+In the left menu, select `Learn` $\rightarrow$ `Potential outcomes`. For the causal estimand exercises, select `Learn` $\rightarrow$ `Causal estimand`. 

@@ -1,0 +1,17 @@
+---
+title: "Literature"
+subtitle: "Week 1: Introduction and Fundamental Concepts"
+editor: source
+---
+
+Please read the below article. Use the reading aid and reading questions to help you get a better understanding of the main points of the text.
+
+> Hernán, M. A. (2018). The C-Word: Scientific Euphemisms Do Not Improve Causal Inference From Observational Data. *American Journal of Public Health, 180*, 616-619. [https://doi.org/10.2105/AJPH.2018.304337](https://doi.org/10.2105/AJPH.2018.304337)
+
+### Reading Aid
+Miguel A. Hernán is an epidemiologist, and hence Hernán (2018) is written more for researchers in biomedical fields. Therefore, the paper might contain terms that are unfamiliar to researchers from the social sciences, such as 'risk ratios' and 'target trial'. It does not matter that you do not fully comprehend this jargon. The goal of reading this article is to understand the main points that are made, because these points similarly apply to research in the social sciences. Answering the below reading questions might help: 
+
+1. What is the main problem that is discussed in Hernán (2018)? 
+2. What common 'reaction' to the problem does the author discuss, and why is this reaction problematic according to him? 
+3. In what parts of a scientific article should a researcher explicitely talk about 'the C-word', according to the author? 
+4. What are the two main advantages of being more explicit about causality in scientific articles? 

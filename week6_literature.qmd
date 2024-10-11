@@ -1,0 +1,13 @@
+---
+title: "Literature"
+subtitle: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
+bibliography: references.bib
+editor: source
+---
+
+Please read the below article. Use the reading aid and reading questions to help you get a better understanding of the main points of the text.
+
+> Mulder, J. D., Luijken, K., Penning de Vries, B. B. L., & Hamaker, E. L. (2024). Causal Effects of Time-Varying Exposures: A Comparison of Structural Equation Modeling and Marginal Structural Models in Cross-Lagged Panel Research. *Structural Equation Modeling: A Multidisciplinary Journal, 31*(4), 575-591. [https://doi.org/10.1080/10705511.2024.2316586](https://doi.org/10.1080/10705511.2024.2316586)
+
+
+## Reading Aid

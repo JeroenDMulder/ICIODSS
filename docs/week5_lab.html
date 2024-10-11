@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jeroen D. Mulder">
 
-<title>Introduction to Causal Inference using Observational Data in the Social Sciences – ICIODSS (2024/25)</title>
+<title>Lab Exercises – ICIODSS (2024/25)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +51,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./description.html" rel="next">
+<link href="./week6_literature.html" rel="next">
+<link href="./week5_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,6 +90,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -81,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week5_literature.html">Week 5: MSMs and Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week5_lab.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -108,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -245,7 +296,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week5_lab.html" class="sidebar-item-text sidebar-link">
+  <a href="./week5_lab.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -286,21 +337,34 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#phase-i-formulation" id="toc-phase-i-formulation" class="nav-link active" data-scroll-target="#phase-i-formulation">Phase I: Formulation</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week5_literature.html">Week 5: MSMs and Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week5_lab.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Causal Inference using Observational Data in the Social Sciences</h1>
+<h1 class="title">Lab Exercises</h1>
+<p class="subtitle lead">Week 5: MSMs and Time-Varying Exposures</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jeroen D. Mulder </p>
+          </div>
+  </div>
     
   
     
@@ -311,11 +375,105 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the course website for “Introduction to Causal Inference using Observational Data in the Social Sciences” (winter term 2024/25), which is an optional seminar of the module “CM 6: Special topics in Psychology” of the “Psychology” master program at Humboldt-Universität. Course materials are distributed through this website, and through the accompanying <a href="https://moodle.hu-berlin.de/course/view.php?id=129767">Moodle course</a>.</p>
+<p>The exercises in this lab will guide you through the first two phases of causal inference when studying a time-varying exposure. However, in contrast to the lectures, you will (a) work with the empirical example in <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span>; (b) consider a more complex (and also more realistic) causal DAG, which will influence our decisions across the phases; and (c) work with simulated data to get a better understanding of what joint effects are, and how inverse probability weighting estimation works.</p>
+<p>This week is also provides important input for your assignment. Please make sure that by the end of this lab, you have read the assignment. That way, you have the opportunity to ask for clarification if anything is unclear.</p>
+<section id="phase-i-formulation" class="level1">
+<h1>Phase I: Formulation</h1>
+<p><span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> use an empirical example to illustrate the use of marginal structural models (MSMs) and inverse-probability-weighting (IPW) estimation. Re-read the section ``Results: empirical illustrations’’, and answer the below questions. Additionally, look up the empirical study upon which this example is based; You need this study to find answers to some of the questions. Finally, and perhaps most importantly, challenge yourself. Really try to come up with a comprehensive answer to the questions before you look at the answers. That way, you test if you truly grasp the contents, and whether or not you can apply it to new problems.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Formulate the causal research question of <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> in words. In your answer, specify the target population, the exposures, the exposure contrast, and the outcome measure. Do <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> focus on specific regimes?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Generally speaking, <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> investigate the bidirectional relationship between religious service attendance and depression. More specifically, they assess the joint effect of religious service attendance in 1996 and in 2000 on depression in 2004; and the joint effect of depression in 1996 and 2000 on religious service attendance in 2004. For the rest of this exercise, we focus on religious service attendance as the exposure, and depression as the outcome. More information can be found in the study by <span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span>.</p>
+<p>Both <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span> are implicit about the target population. Based on their sample, it can be inferred that their target population is female nurses across the United States. <span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span> states: “We, therefore, considered analyses both with and without participants who had a diagnosis of cardiovascular disease or cancer at baseline (n=19,803)”. They thus considered restricting their target population to only those without diagnosis of cardiovascular disease or cancer. Later, <span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span> describes how the analyses are repeated, but restricted to either only Catholics or Protestants, thereby further specifying a specific target population.</p>
+<p>The outcome, depression, was defined as ``(…) either self-reported physician or clinician-diagnosed depression, or use of antidepressant medications, or depressive symptoms CESD-10 measure above 10.’’. The CESD-10 is a 10-item Likert scale screening questionnaire assessing depressive symptoms <em>in the past week</em>. It was measured in 2004, that is eight years after the first exposure-measurement (in 1996), and four years after the second exposure-measurement (in 2000).</p>
+<p>The exposure was self-reported service attendance using the question: “How often in the past year do you attend religious services?” Answer categories were “More than once per week”, “Once per week”, “Less than once per week”, and “Never or almost never”.</p>
+<p><span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span> do not express interest in any particular exposure regime. Therefore, there is also no explicit exposure contrast.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Is this research question about an ACE, ACE<span class="math inline">\(_{1}\)</span>, or ACE<span class="math inline">\(_{0}\)</span>? Reformulate the research question for those ACE<span class="math inline">\(_{...}\)</span>’s left over.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="li_religious_2016">Li et al. (<a href="#ref-li_religious_2016" role="doc-biblioref">2016</a>)</span> research targets an average causal effect (ACE). A related ACE<span class="math inline">\(_{1}\)</span> could be: “Should psychologists discourage going to religious services for those female nurses in the US that currently do attend religious services?” A related ACE<span class="math inline">\(_{0}\)</span> could be: “Should psychologists encourage going to religious services at least once a week among those female nurses in the US that currently do not frequent religious services?”</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Formulate the marginal structural model that is used. Tip: Consider how many times the exposure was measured, and the measurement level of the exposure and outcome; also see Table 2 in <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span>.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The outcome is binary, and thus we need to specify a <em>logistic</em> marginal structural model. The exposures are categorical, containing four categories, and there are two time points at which exposures were measured. Based on this, we can infer which MSM was likely specified:</p>
+<p><span class="math display">\[
+logit \; Pr[Y^{\{A_{1}, A_{2}\}}] = \gamma_{0} + \gamma_{1} A_{1, C2} + \gamma_{2} A_{1, C3} + \gamma_{3} A_{1,C4} + \gamma_{4} A_{2, C2} + \gamma_{5} A_{2, C3} + \gamma_{6} A_{2, C4} + ...
+\]</span></p>
+<p>The <span class="math inline">\(logit\)</span> was used here because we are dealing with dichotomous outcome. Table 2 in <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> states that the exposure category “Never” is the reference category. Therefore, <span class="math inline">\(A_{1, C2}\)</span>, <span class="math inline">\(A_{1, C3}\)</span>, and <span class="math inline">\(A_{1, C4}\)</span> are dummy variables for the religious service attendance categories “&lt; 1/week” (category 2), “1/week” (category 3), and “&lt; 1/week” (category 4) <em>in 1996</em>, respectively. <span class="math inline">\(A_{2, C2}\)</span>, <span class="math inline">\(A_{2, C3}\)</span>, and <span class="math inline">\(A_{2, C4}\)</span> are dummy variables for the religious service attendance categories “&lt; 1/week”, “1/week”, and “&lt;1/week” <em>in 2000</em>, respectively. <span class="math inline">\(exp(\gamma_{...})\)</span> then represent causal odds ratios. For example, <span class="math inline">\(exp(\gamma_{1})\)</span> is the causal odds ratio of depression in 2004 for religious service attendance less than once a week in 1996 versus never religious service attendance in 1996. The term <span class="math inline">\(+ ...\)</span> in the MSM above represents the uncertainty around whether or not <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span> additionally included baseline covariates in the MSM. Their SAS and STATA code in the online supplementary materials suggest that they did, but this is not clear from the main article.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Is this a saturated MSM? If yes, what is the advantage/disadvantage of a saturated MSM? If no, what is the advantage/disadvantage of an unsaturated MSM? Tip: Think about the expected potential outcomes that exist, and compare this to the number of parameters in the MSM.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A saturated MSM has as many parameters as there are potential outcome expectations. In this case, a selection of potential outcome expectations are:</p>
+<ul>
+<li><span class="math inline">\(Y^{\{0, 0\}}\)</span>, representing never attending religious service in 1996 and 2000.</li>
+<li><span class="math inline">\(Y^{\{1, 0\}}\)</span>, representing attending religious services &lt; 1/week in 1996, and never in 2000.</li>
+<li><span class="math inline">\(Y^{\{2, 0\}}\)</span>, representing attending religious services 1/week in 1996, and never in 2000.</li>
+<li>etc.</li>
+</ul>
+<p>In total, there are 16 exposure regimes, and therefore 16 potential outcome expectations. The MSM, however, contains 7 parameters. Therefore, the MSM is not saturated, and encodes some causal assumptions. Which assumptions are encoded in this MSM? How can this MSM be adjusted to make it saturated?</p>
+<p>The reason why, especially in settings with many repeated measures or with a continuous exposure, we need to work with nonsaturated MSMs is because there simply exist to many potential outcome expectations. For example, with a binary exposure and <span class="math inline">\(k\)</span> number of repeated measures, there exist <span class="math inline">\(2^{k}\)</span> number or potential outcome expectations, meaning that with 10 repeated measures, we would need to specify an MSM with <span class="math inline">\(2^{10} = 1024\)</span> parameters.</p>
+<p>The disadvantage is that nonsaturated models make assumptions which, when violated, bias our effects of interest. For the MSM from <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span>, we assume that the direct effect of religious service attendance in 2000 is not dependent on an individuals religious service attendance in 1996 (i.e., there is no interaction).</p>
+</div>
+</div>
+</div>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-li_religious_2016" class="csl-entry" role="listitem">
+Li, Shanshan, Olivia I Okereke, Shun-Chiao Chang, Ichiro Kawachi, and Tyler J. VanderWeele. 2016. <span>“Religious Service Attendance and Lower Depression Among Women: <span>A</span> Prospective Cohort Study.”</span> <em>Annals of Behavioral Medicine</em> 50 (6): 876–84. <a href="https://doi.org/10.1007/s12160-016-9813-9">https://doi.org/10.1007/s12160-016-9813-9</a>.
+</div>
+<div id="ref-vanderweele_causal_2016" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., John W. Jackson, and Shanshan Li. 2016. <span>“Causal Inference and Longitudinal Data: <span>A</span> Case Study of Religion and Mental Health.”</span> <em>Social Psychiatry and Psychiatric Epidemiology</em> 51 (11): 1457–66. <a href="https://doi.org/10.1007/s00127-016-1281-9">https://doi.org/10.1007/s00127-016-1281-9</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -738,10 +896,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./week5_literature.html" class="pagination-link" aria-label="Literature">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./description.html" class="pagination-link" aria-label="Description">
-        <span class="nav-page-text">Description</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./week6_literature.html" class="pagination-link" aria-label="Literature">
+        <span class="nav-page-text">Literature</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

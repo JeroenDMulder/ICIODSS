@@ -1,0 +1,22 @@
+---
+title: "Literature"
+subtitle: "Week 2: Causal Graphs"
+bibliography: references.bib
+editor: source
+---
+
+Please read the below article. Use the reading aid and reading questions to help you get a better understanding of the main points of the text.
+
+> Rohrer, J. M. (2018). Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data. *Advances in Methods and Practices in Psychological Science, 1*(1), 27-42. [https://doi.org/10.1177/2515245917745629](https://doi.org/10.1177/2515245917745629)
+
+### Reading Aid
+Julia M. Rohrer is a personality psychologist at the Wilhelm Wundt Institute for Psychology, with a strong methodology interest in causal inference based on observational data. A large portion of her work focuses on making technical causal inference research accessible to researchers in psychology and related disciplines. In @rohrer_thinking_2018, she introduces directed acyclical graphs in a psychological context. The most important point of this reading material is that you understand what DAGs are at their core. How to control for covariates (i.e., the section "How to control for a variable") is a topic that we explore in more in detail in week 3. 
+
+Answering the below reading questions might help focus on the most import points for the purpose of this course: 
+
+1. Similar to Hernán (2018), Rohrer (2018) addresses the problems associated with causal inference from observational data. She describes (and criticizes) three different strategies by researchers from different areas of psychology to cope with the weaknesses of observational data. What are these? Which of these problematic strategies can be addresses by the use of directed acyclical graphs (DAGs)? 
+2. What are the two building blocks of DAGs, and what do they represent? 
+3. What is a 'path'? 
+4. In the section "Confounding: The Bane of Observational Data", Rohrer describes how DAGs can help researchers to think about confounding. Which phase of causal research does this relate to? Or, more specifically, which assumption does this relate to? 
+5. Should researchers draw up DAGs based on theory or on data? 
+6. Can a DAG only contain observed, or also unobserved variables? 

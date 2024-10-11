@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Causal Inference using Observational Data in the Social Sciences – ICIODSS (2024/25)</title>
+<title>Literature – ICIODSS (2024/25)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./description.html" rel="next">
+<link href="./week3_lab.html" rel="next">
+<link href="./week2_lab.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,6 +89,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -81,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week3_literature.html">Week 3: Rubin Causal Model (Part I)</a></li><li class="breadcrumb-item"><a href="./week3_literature.html">Literature</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -108,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -193,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week3_literature.html" class="sidebar-item-text sidebar-link">
+  <a href="./week3_literature.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Literature</span></a>
   </div>
 </li>
@@ -286,15 +336,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reading-aid" id="toc-reading-aid" class="nav-link active" data-scroll-target="#reading-aid">Reading Aid</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">“Overview”</a></li>
+  <li><a href="#the-potential-outcomes-framework-for-causal-inference" id="toc-the-potential-outcomes-framework-for-causal-inference" class="nav-link" data-scroll-target="#the-potential-outcomes-framework-for-causal-inference">“The Potential-Outcomes Framework for Causal Inference”</a></li>
+  <li><a href="#a-simulated-observational-study" id="toc-a-simulated-observational-study" class="nav-link" data-scroll-target="#a-simulated-observational-study">“A Simulated Observational Study”</a></li>
+  <li><a href="#mean-comparisons-ancova-and-regression" id="toc-mean-comparisons-ancova-and-regression" class="nav-link" data-scroll-target="#mean-comparisons-ancova-and-regression">“Mean Comparisons, ANCOVA, and Regression”</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week3_literature.html">Week 3: Rubin Causal Model (Part I)</a></li><li class="breadcrumb-item"><a href="./week3_literature.html">Literature</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Causal Inference using Observational Data in the Social Sciences</h1>
+<h1 class="title">Literature</h1>
+<p class="subtitle lead">Week 3: Rubin Causal Model (Part I)</p>
 </div>
 
 
@@ -311,11 +374,55 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the course website for “Introduction to Causal Inference using Observational Data in the Social Sciences” (winter term 2024/25), which is an optional seminar of the module “CM 6: Special topics in Psychology” of the “Psychology” master program at Humboldt-Universität. Course materials are distributed through this website, and through the accompanying <a href="https://moodle.hu-berlin.de/course/view.php?id=129767">Moodle course</a>.</p>
+<p>Please read the first part of the below article, up to the Section ``Introduction to Propensity Scores’’. Use the reading aid and reading questions to help you get a better understanding of the main points of the text.</p>
+<blockquote class="blockquote">
+<p>Schafer, J. L., &amp; Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. <em>Psychological Methods, 13</em>(4), 279-313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a></p>
+</blockquote>
+<section id="reading-aid" class="level2">
+<h2 class="anchored" data-anchor-id="reading-aid">Reading Aid</h2>
+<p>This article provides an overview of nine different estimation methods that can be used to estimate an average causal effect (ACE), average causal effect for the treated (ACE<span class="math inline">\(_{1}\)</span>), and average causal effect for the untreated (ACE<span class="math inline">\(_{0}\)</span>). Some of these estimation methods you have learned about during your bachelor, others might be new to you. Overall, the paper might appear more technical than the papers you are used to so far, with a decent amount of equations to explain the different estimation methods. Do not be discouraged, as the goal of this course is not for you to fully understand each equation. Instead, use the reading questions below to help you understand the main points of each section.</p>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">“Overview”</h3>
+<p>The article starts with introducing the potential outcomes framework for causal inference. This introduction might explain causal inference concepts in a slightly different way; see if you can relate the information in the paper to what you have learned from earlier lectures and labs.</p>
+<ul>
+<li>On page 280, the authors mention “We also make the simplifying assumption that <em>all confounders have been measured and are available to the analyst.</em>” Which causal identification assumption does this refer to?</li>
+</ul>
+</section>
+<section id="the-potential-outcomes-framework-for-causal-inference" class="level3">
+<h3 class="anchored" data-anchor-id="the-potential-outcomes-framework-for-causal-inference">“The Potential-Outcomes Framework for Causal Inference”</h3>
+<ul>
+<li>On page 281, the authors mention the “fundamental problem of causal inference”. Explain in your own words what this means.</li>
+<li>On page 282, <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> introduce the ACE for the treated/untreated (the ACE<span class="math inline">\(_{1}\)</span> and ACE<span class="math inline">\(_{0}\)</span>, respectively). What are the interpretations of the ACE<span class="math inline">\(_{1}\)</span> and ACE<span class="math inline">\(_{0}\)</span>, and how are these different from the ACE?</li>
+<li>In the subsection “<em>Assumptions Needed to Estimate an ACE</em>”, mark down which assumptions we have already discussed in previous lectures (i.e., the causal identification assumptions in Phase II), and which assumptions we have not really discussed yet.</li>
+</ul>
+</section>
+<section id="a-simulated-observational-study" class="level3">
+<h3 class="anchored" data-anchor-id="a-simulated-observational-study">“A Simulated Observational Study”</h3>
+<ul>
+<li>Similar to the lab exercises of week 2, <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> use simulations here to illustrate how the estimation methods work. Remind yourself again, why are simulations useful in this context?</li>
+<li>Based on the information in the text and in Table 3, see if you can draw a DAG that underlies the simulated data.</li>
+<li>In the simulated data (also referred to as the “synthetic population”), what is the true ACE, ACE<span class="math inline">\(_{1}\)</span>, and ACE<span class="math inline">\(_{0}\)</span>?</li>
+</ul>
+</section>
+<section id="mean-comparisons-ancova-and-regression" class="level3">
+<h3 class="anchored" data-anchor-id="mean-comparisons-ancova-and-regression">“Mean Comparisons, ANCOVA, and Regression”</h3>
+<p>Try to understand Methods 2 and 3 as much as possible. We will go over these methods in detail during the lecture, and you will practice with them in the lab.</p>
+<ul>
+<li>For Method 1, which statistical test do the author use to compare the means of two groups?</li>
+<li>For Method 2, think back at your bachelor courses on statistics. Which analyses that you already know would fall under Method 2?</li>
+<li>Describe in your own words how Method 3 is different from Method 2.</li>
+</ul>
 
 
 
-</main> <!-- /main -->
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-schafer_average_2008" class="csl-entry" role="listitem">
+Schafer, Joseph L., and Joseph Kang. 2008. <span>“Average Causal Effects from Nonrandomized Studies: <span>A</span> Practical Guide and Simulated Example.”</span> <em>Psychological Methods</em> 13 (4): 279–313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -738,10 +845,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./week2_lab.html" class="pagination-link" aria-label="Lab exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lab exercises</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./description.html" class="pagination-link" aria-label="Description">
-        <span class="nav-page-text">Description</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./week3_lab.html" class="pagination-link" aria-label="Lab exercises">
+        <span class="nav-page-text">Lab exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,13 @@
+---
+title: "Literature"
+subtitle: "Week 5: MSMs and Time-Varying Exposures"
+bibliography: references.bib
+editor: source
+---
+
+Please read the below article. Use the reading aid and reading questions to help you get a better understanding of the main points of the text.
+
+> VanderWeele, T. J., Jackson, J. W., & Li, S. (2016). Causal inference and longitudinal data: A case study of religion and mental health. *Social Psychiatry and Psychiatric Epidemiology, 51*, 1457-1466. [https://doi.org/10.1007/s00127-016-1281-9](https://doi.org/10.1007/s00127-016-1281-9)
+
+
+## Reading Aid

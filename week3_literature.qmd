@@ -1,0 +1,38 @@
+---
+title: "Literature"
+subtitle: "Week 3: Rubin Causal Model (Part I)"
+bibliography: references.bib
+editor: source
+---
+
+Please read the first part of the below article, up to the Section ``Introduction to Propensity Scores''. Use the reading aid and reading questions to help you get a better understanding of the main points of the text. 
+
+> Schafer, J. L., & Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. *Psychological Methods, 13*(4), 279-313. [https://doi.org/10.1037/a0014268](https://doi.org/10.1037/a0014268)
+
+
+## Reading Aid
+This article provides an overview of nine different estimation methods that can be used to estimate an average causal effect (ACE), average causal effect for the treated (ACE$_{1}$), and average causal effect for the untreated (ACE$_{0}$). Some of these estimation methods you have learned about during your bachelor, others might be new to you. Overall, the paper might appear more technical than the papers you are used to so far, with a decent amount of equations to explain the different estimation methods. Do not be discouraged, as the goal of this course is not for you to fully understand each equation. Instead, use the reading questions below to help you understand the main points of each section. 
+
+### "Overview"
+The article starts with introducing the potential outcomes framework for causal inference. This introduction might explain causal inference concepts in a slightly different way; see if you can relate the information in the paper to what you have learned from earlier lectures and labs. 
+
+- On page 280, the authors mention "We also make the simplifying assumption that *all confounders have been measured and are available to the analyst.*" Which causal identification assumption does this refer to? 
+
+### "The Potential-Outcomes Framework for Causal Inference"
+
+- On page 281, the authors mention the "fundamental problem of causal inference". Explain in your own words what this means. 
+- On page 282, @schafer_average_2008 introduce the ACE for the treated/untreated (the ACE$_{1}$ and ACE$_{0}$, respectively). What are the interpretations of the ACE$_{1}$ and ACE$_{0}$, and how are these different from the ACE? 
+- In the subsection "*Assumptions Needed to Estimate an ACE*", mark down which assumptions we have already discussed in previous lectures (i.e., the causal identification assumptions in Phase II), and which assumptions we have not really discussed yet. 
+
+### "A Simulated Observational Study"
+
+- Similar to the lab exercises of week 2, @schafer_average_2008 use simulations here to illustrate how the estimation methods work. Remind yourself again, why are simulations useful in this context? 
+- Based on the information in the text and in Table 3, see if you can draw a DAG that underlies the simulated data. 
+- In the simulated data (also referred to as the "synthetic population"), what is the true ACE, ACE$_{1}$, and ACE$_{0}$? 
+
+### "Mean Comparisons, ANCOVA, and Regression"
+Try to understand Methods 2 and 3 as much as possible. We will go over these methods in detail during the lecture, and you will practice with them in the lab. 
+
+- For Method 1, which statistical test do the author use to compare the means of two groups? 
+- For Method 2, think back at your bachelor courses on statistics. Which analyses that you already know would fall under Method 2? 
+- Describe in your own words how Method 3 is different from Method 2.

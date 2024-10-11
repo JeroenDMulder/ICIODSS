@@ -1,0 +1,31 @@
+---
+title: "Literature"
+subtitle: "Week 4: Rubin Causal Model (Part II)"
+bibliography: references.bib
+editor: source
+---
+
+
+Please read the second part of the below article, specifically the sections "Introduction to Propensity Scores" and "Discussion" (you can skip the section "Dual-Modeling Strategies"). Use the reading aid and reading questions to help you get a better understanding of the main points of the text. 
+
+> Schafer, J. L., & Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. *Psychological Methods, 13*(4), 279-313. [https://doi.org/10.1037/a0014268](https://doi.org/10.1037/a0014268)
+
+
+## Reading Aid
+This week we continue our treatment of @schafer_average_2008, now focusing on Methods 4 to 6 which center around the use of propensity scores. Use the reading questions below to help you understand the main points of each section. 
+
+### "Introduction to Propensity Scores"
+
+- On page 294, it is mentioned that propensity score-based analysis techniques are "(...) in part a reaction to misapplications of ANCOVA, where analysts were often unaware of the sensitivity of their results to model failure." What is meant by this? 
+- On page 294, @schafer_average_2008 mention that "Girls who consider themselves overweight were more likely to diet.". Based on this information, would a girl who considers herself overweight receive a relatively low or a relatively high propensity score? 
+- Which analysis technique was used to predict the propensity scores? What is the outcome in this analysis, and what are the predictors? 
+- Suppose that we do a randomized controlled trial, and then compute propensity scores for treated and untreated based on all kinds of background variables. What can you say about the distribution of propensity scores in both groups in this context? 
+
+### "Using Propensity Scores to Estimate ACEs"
+This might be your first encounter with methods such as matching, weighting, and subclassification. Try to understand as much as possible from the text and write down questions that you have. We cover this topic in detail during the lecture and the lab exercises. 
+
+### "Discussion"
+The goal of an analysis is twofold (from a statistical perspective): (a) it should result in estimates that are as close as possible to the Truth, and (b) it should make efficient use of the data (i.e., you want small standard errors). 
+
+- Look at Table 6, which lists the estimated ACE for Methods 1 to 9. Ignoring Methods 7 to 9, which method came closest to the correct ACE for this one particular dataset? 
+- Which method made the least efficient use of the data? Which explanation do @schafer_average_2008 give for this? 

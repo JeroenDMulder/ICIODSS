@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Causal Inference using Observational Data in the Social Sciences – ICIODSS (2024/25)</title>
+<title>Literature – ICIODSS (2024/25)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./description.html" rel="next">
+<link href="./week4_lab.html" rel="next">
+<link href="./week3_lab.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -108,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -216,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link">
+  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Literature</span></a>
   </div>
 </li>
@@ -286,15 +307,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reading-aid" id="toc-reading-aid" class="nav-link active" data-scroll-target="#reading-aid">Reading Aid</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-propensity-scores" id="toc-introduction-to-propensity-scores" class="nav-link" data-scroll-target="#introduction-to-propensity-scores">“Introduction to Propensity Scores”</a></li>
+  <li><a href="#using-propensity-scores-to-estimate-aces" id="toc-using-propensity-scores-to-estimate-aces" class="nav-link" data-scroll-target="#using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">“Discussion”</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Causal Inference using Observational Data in the Social Sciences</h1>
+<h1 class="title">Literature</h1>
+<p class="subtitle lead">Week 4: Rubin Causal Model (Part II)</p>
 </div>
 
 
@@ -311,11 +344,44 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the course website for “Introduction to Causal Inference using Observational Data in the Social Sciences” (winter term 2024/25), which is an optional seminar of the module “CM 6: Special topics in Psychology” of the “Psychology” master program at Humboldt-Universität. Course materials are distributed through this website, and through the accompanying <a href="https://moodle.hu-berlin.de/course/view.php?id=129767">Moodle course</a>.</p>
+<p>Please read the second part of the below article, specifically the sections “Introduction to Propensity Scores” and “Discussion” (you can skip the section “Dual-Modeling Strategies”). Use the reading aid and reading questions to help you get a better understanding of the main points of the text.</p>
+<blockquote class="blockquote">
+<p>Schafer, J. L., &amp; Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. <em>Psychological Methods, 13</em>(4), 279-313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a></p>
+</blockquote>
+<section id="reading-aid" class="level2">
+<h2 class="anchored" data-anchor-id="reading-aid">Reading Aid</h2>
+<p>This week we continue our treatment of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, now focusing on Methods 4 to 6 which center around the use of propensity scores. Use the reading questions below to help you understand the main points of each section.</p>
+<section id="introduction-to-propensity-scores" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-to-propensity-scores">“Introduction to Propensity Scores”</h3>
+<ul>
+<li>On page 294, it is mentioned that propensity score-based analysis techniques are “(…) in part a reaction to misapplications of ANCOVA, where analysts were often unaware of the sensitivity of their results to model failure.” What is meant by this?</li>
+<li>On page 294, <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> mention that “Girls who consider themselves overweight were more likely to diet.”. Based on this information, would a girl who considers herself overweight receive a relatively low or a relatively high propensity score?</li>
+<li>Which analysis technique was used to predict the propensity scores? What is the outcome in this analysis, and what are the predictors?</li>
+<li>Suppose that we do a randomized controlled trial, and then compute propensity scores for treated and untreated based on all kinds of background variables. What can you say about the distribution of propensity scores in both groups in this context?</li>
+</ul>
+</section>
+<section id="using-propensity-scores-to-estimate-aces" class="level3">
+<h3 class="anchored" data-anchor-id="using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</h3>
+<p>This might be your first encounter with methods such as matching, weighting, and subclassification. Try to understand as much as possible from the text and write down questions that you have. We cover this topic in detail during the lecture and the lab exercises.</p>
+</section>
+<section id="discussion" class="level3">
+<h3 class="anchored" data-anchor-id="discussion">“Discussion”</h3>
+<p>The goal of an analysis is twofold (from a statistical perspective): (a) it should result in estimates that are as close as possible to the Truth, and (b) it should make efficient use of the data (i.e., you want small standard errors).</p>
+<ul>
+<li>Look at Table 6, which lists the estimated ACE for Methods 1 to 9. Ignoring Methods 7 to 9, which method came closest to the correct ACE for this one particular dataset?</li>
+<li>Which method made the least efficient use of the data? Which explanation do <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> give for this?</li>
+</ul>
 
 
 
-</main> <!-- /main -->
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-schafer_average_2008" class="csl-entry" role="listitem">
+Schafer, Joseph L., and Joseph Kang. 2008. <span>“Average Causal Effects from Nonrandomized Studies: <span>A</span> Practical Guide and Simulated Example.”</span> <em>Psychological Methods</em> 13 (4): 279–313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -738,10 +804,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./week3_lab.html" class="pagination-link" aria-label="Lab exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lab exercises</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./description.html" class="pagination-link" aria-label="Description">
-        <span class="nav-page-text">Description</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./week4_lab.html" class="pagination-link" aria-label="Lab exercises">
+        <span class="nav-page-text">Lab exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,30 +1,31 @@
 ---
 title: "Syllabus"
+bibliography: references.bib
 editor: source
 ---
 
-You can find the course schedule and literature in the overview below. Lectures will take place in .... Labs take places in .... 
+You can find the course schedule in the overview below. Lectures and labs will take place in the Wolfgang-Köhler-Haus (Rudower Chaussee 18), room 2.101 (Testbibliothek).  
 
 
-| Week | What    | Topic                            |
-|------|---------|----------------------------------|
-| 42   | Reading | @hernan_c_word_2018              | 
-|      | Lecture | Introduction to causal inference | 
-|      | Lab     | Exercises                        |
-| 43   | Reading | @schafer_average_2008 (skip Methods 7, 8, and 9)                   |
-|      | Lecture | Rubin Causal Model                    |
-|      | Lab     |                      |
-| 44   | Reading | @roher_thinking_2018                     |
-|      | Lecture | Directed Acyclical Graphs                     |
-|      | Lab     |                      |
-| 45   | Reading | @vanderweele_causal_2016                     |
-|      | Lecture | Marginal Structural Models                     |
-|      | Lab     |                      |
-| 46   | Reading |                      |
-|      | Lecture | Inverse Probability Weighting                    |
-|      | Lab     |                      |
-| 47   | Reading |                      |
-|      | Lecture | Linear SNMMs and G-estimation                      |
-|      | Lab     |                      |
-| 48   | Lab     | Assignment: Preparation |
-| 49   | Lecture | Assignment: Presentations | 
+| Week | What    | Topic                                 |
+|------|---------|---------------------------------------|
+| 43   | Reading | @hernan_c-word_2018                   | 
+|      | Lecture | Introduction and fundamental concepts | 
+|      | Lab     | Exercises                             |
+| 44   | Reading | @rohrer_thinking_2018                  |
+|      | Lecture | Causal graphs                         |
+|      | Lab     | Exercises                             |
+| 45   | Reading | @schafer_average_2008                 |
+|      | Lecture | Rubin Causal Model (Part I)           |
+|      | Lab     | Exercises                             |
+| 46   | Reading | @schafer_average_2008                 |
+|      | Lecture | Rubin Causal Model (Part II)          |
+|      | Lab     | Exercise, start assignment            |
+| 47   | Reading | @vanderweele_causal_2016              |
+|      | Lecture | Marginal Structural Models and time-varying exposures |
+|      | Lab     | Exercises                             |
+| 48   | Reading | @mulder_causal_2024                   |
+|      | Lecture | Estimating causal effects of time-varying exposures |
+|      | Lab     | Exercises                             |
+| 49   | Lab     | Assignment: Preparation               |
+| 50   | Lecture | Assignment: Presentations             | 
