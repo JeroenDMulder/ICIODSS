@@ -34,7 +34,7 @@ website:
         contents:
           - href: week3_literature.qmd
             text: "Literature"
-          - href: week3_lab.qmd
+          - href: week3_lab_noAnswers.qmd
             text: "Lab exercises"
       - section: "Week 4: Rubin Causal Model (Part II)"
         contents:

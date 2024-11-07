@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ellen L. Hamaker">
+<meta name="author" content="Jeroen D. Mulder">
 
-<title>Literature – ICIODSS (2024/25)</title>
+<title>Lab Exercises – ICIODSS (2024/25)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +86,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./week4_lab.html" rel="next">
-<link href="./week3_lab_noAnswers.html" rel="prev">
+<link href="./week4_literature.html" rel="next">
+<link href="./week3_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,6 +125,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -102,7 +167,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week3_literature.html">Week 3: Rubin Causal Model (Part I)</a></li><li class="breadcrumb-item"><a href="./week3_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -220,7 +285,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week3_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week3_lab_noAnswers.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -237,7 +302,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link active">
+  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Literature</span></a>
   </div>
 </li>
@@ -312,28 +377,35 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reading-aid" id="toc-reading-aid" class="nav-link active" data-scroll-target="#reading-aid">Reading Aid</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-propensity-scores" id="toc-introduction-to-propensity-scores" class="nav-link" data-scroll-target="#introduction-to-propensity-scores">“Introduction to Propensity Scores”</a></li>
-  <li><a href="#using-propensity-scores-to-estimate-aces" id="toc-using-propensity-scores-to-estimate-aces" class="nav-link" data-scroll-target="#using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">“Discussion”</a></li>
-  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#method-1-compare-means" id="toc-method-1-compare-means" class="nav-link" data-scroll-target="#method-1-compare-means">Method 1: Compare Means</a></li>
+  <li><a href="#investigating-covariate-imbalance" id="toc-investigating-covariate-imbalance" class="nav-link" data-scroll-target="#investigating-covariate-imbalance">Investigating Covariate Imbalance</a></li>
+  <li><a href="#method-2-ancova" id="toc-method-2-ancova" class="nav-link" data-scroll-target="#method-2-ancova">Method 2: ANCOVA</a></li>
+  <li><a href="#method-3-regression-estimation" id="toc-method-3-regression-estimation" class="nav-link" data-scroll-target="#method-3-regression-estimation">Method 3: Regression Estimation</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week3_literature.html">Week 3: Rubin Causal Model (Part I)</a></li><li class="breadcrumb-item"><a href="./week3_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Literature</h1>
-<p class="subtitle lead">Week 4: Rubin Causal Model (Part II)</p>
+<h1 class="title">Lab Exercises</h1>
+<p class="subtitle lead">Week 3: Rubin Causal Model (Part I)</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ellen L. Hamaker </p>
+             <p>Jeroen D. Mulder </p>
+          </div>
+  </div>
     
   
     
@@ -344,37 +416,213 @@ div.csl-indent {
 </header>
 
 
-<p>Please read the second part of the below article, specifically the sections “Introduction to Propensity Scores” and “Discussion” (you can skip the section “Dual-Modeling Strategies”). Use the reading aid and reading questions to help you get a better understanding of the main points of the text.</p>
-<blockquote class="blockquote">
-<p>Schafer, J. L., &amp; Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. <em>Psychological Methods, 13</em>(4), 279-313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a></p>
-</blockquote>
-<section id="reading-aid" class="level2">
-<h2 class="anchored" data-anchor-id="reading-aid">Reading Aid</h2>
-<p>This week we continue our treatment of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, now focusing on Methods 4 to 6 which center around the use of propensity scores. Use the reading questions below to help you understand the main points of each section.</p>
-<section id="introduction-to-propensity-scores" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-propensity-scores">“Introduction to Propensity Scores”</h3>
+<p>In these exercises, we follow the analyses discussed in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, focusing on Methods 1 to 3. We will also use the data from <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, which are in a data file called <code>SchaferKangData.dat</code>. These are simulated data, and hence the authors (and we) know what the correct answer to the question “What is the effect of dieting on emotional distress?” actually is. Hence, the purpose of the exercises here is to obtain a deeper understanding and hands-on experience with the diverse techniques.</p>
+<p>Make sure to compare the results you get throughout the exercises to those reported in Table 6 of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>. For null-hypothesis tests, you can use a significance level of 0.05 throughout.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>In this practical you will make use of various R packages. If you haven’t already, install the packages <code>tableone</code> using <code>install.packages("tableone")</code>.</p>
+<p>Load the data, which are in the data file called <code>SchaferKangData.dat</code>. Take a look at the data set. See Table 3 in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> for a description of the variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"SchaferKangData.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="method-1-compare-means" class="level2">
+<h2 class="anchored" data-anchor-id="method-1-compare-means">Method 1: Compare Means</h2>
+<p>When a randomized controlled trial (RCT) has been conducted, the treatment groups should not differ on any (pre-treatment) covariate due to random assignment. In that case, the ACE can be computed by taking the difference in means between the two groups for the outcome variable. This is also referred to as the <em>prima facie</em> effect. Although the current data are not generated by a RCT scenario, we will nevertheless consider this naive estimation approach for the causal effect.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compare the means between the groups on the outcome variable. Use, for instance <code>t.test()</code> in R.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section>
+<section id="investigating-covariate-imbalance" class="level2">
+<h2 class="anchored" data-anchor-id="investigating-covariate-imbalance">Investigating Covariate Imbalance</h2>
+<p>The mean difference above is based on the assumption that there is no confounding. However, we have a set of observed covariates, and if our data mimic an RCT, there should be no mean differences between the two groups on these covariates. We check this with the standardized mean difference (rather than a t-test, because we do not want it to be dependent on sample size), that is <span class="math display">\[\Delta Z = \frac{(\bar{Z} | X = 1) - (\bar{Z} | X = 0)}{\sqrt{((S^{2} | X = 1) +(S^{2} | X = 0)) / 2}},\]</span> where <span class="math inline">\(\bar{Z} | X = x\)</span> is the mean of covariate <span class="math inline">\(Z\)</span> in group <span class="math inline">\(x\)</span>, <span class="math inline">\(S^{2} | X = x\)</span> is the variance in group <span class="math inline">\(x\)</span>, and <span class="math inline">\(X = 1\)</span> is the diet group and <span class="math inline">\(X = 0\)</span> is the non-diet group.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Determine the normalized difference between the girls who did diet versus the girls who did not diet on the first covariate, that is, <code>DISTR.1</code> (emotional distress at wave 1).
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Instead of computing these SMDs ourselves, we can also use the function <code>CreateTableOne()</code> from the R package <code>tableone</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tableone) <span class="co"># Load the package</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>( <span class="co"># Create SMDs for all covariates</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"DISTR.1"</span>,<span class="st">"BLACK"</span>, <span class="st">"NBHISP"</span>, <span class="st">"GRADE"</span>, <span class="st">"SLFHLTH"</span>, <span class="st">"SLFWGHT"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"WORKHARD"</span>, <span class="st">"GOODQUAL"</span>, <span class="st">"PHYSFIT"</span>, <span class="st">"PROUD"</span>, <span class="st">"LIKESLF"</span>, <span class="st">"ACCEPTED"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"FEELLOVD"</span>), </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">strata =</span> <span class="st">"DIET"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">test =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Obtain the table with standardize mean differences using <code>print(table1, smd = TRUE)</code>, and comment on wheter there is imbalance on the covariates across the groups.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section>
+<section id="method-2-ancova" class="level2">
+<h2 class="anchored" data-anchor-id="method-2-ancova">Method 2: ANCOVA</h2>
+<p>Method 2 of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> is based on including possible confounders as covariates (or predictors) in a model for the outcome: When there are no interactions between predictors in the model they refer to the analysis as ANCOVA, with interactions between predictors it is more generally referred to as “regression”. We will include all the covariates in our analyses below, even when they have a small standardized mean difference. In the latter case there may not be a need to correct for differences in them between the groups, but they may still account for variance in the outcome variable, and by accounting for this, we increase the power of our analysis.</p>
+<p>To run an ANCOVA, we can simply run a regression model without interactions between the predictors. Our model here can be written as: <span class="math display">\[
+\begin{align}DISTR.2 = &amp;\alpha + \theta DIET + \\
+&amp;\beta_{1} DISTR.1 + \beta_{2} BLACK + \beta_{3} NBHISP + \beta_{4} GRADE + \beta_{5} SLFHLTH + \\
+&amp;\beta _{6} SLFWGHT + \beta_{7} WORKSHARD + \beta_{8} GOODQUAL + \beta_{9} PHYSFIT + \\
+&amp;\beta_{10} PROUD + \beta_{11} LIKESLF + \beta_{12} ACCEPTED + \beta_{13} FEELLOVED
+\end{align}
+\]</span> Note, since the categorical variables <span class="math inline">\(DIET\)</span>, <span class="math inline">\(BLACK\)</span> and <span class="math inline">\(NBHISP\)</span> are dummy variables (they only have 2 categories), you do not need to treat them differently than the continuous covariates.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Run the ANCOVA model (for instance using the function <code>glm()</code> in R), and interpret the results.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>We can extend the ANCOVA model above by incorporating product terms between the predictors:</p>
 <ul>
-<li>On page 294, it is mentioned that propensity score-based analysis techniques are “(…) in part a reaction to misapplications of ANCOVA, where analysts were often unaware of the sensitivity of their results to model failure.” What is meant by this?</li>
-<li>On page 294, <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> mention that “Girls who consider themselves overweight were more likely to diet.”. Based on this information, would a girl who considers herself overweight receive a relatively low or a relatively high propensity score?</li>
-<li>Which analysis technique was used to predict the propensity scores? What is the outcome in this analysis, and what are the predictors?</li>
-<li>Suppose that we do a randomized controlled trial, and then compute propensity scores for treated and untreated based on all kinds of background variables. What can you say about the distribution of propensity scores in both groups in this context?</li>
+<li>product between covariate and itself: quadratic effect</li>
+<li>product between two covariates: interaction</li>
+<li>product between treatment and covariates: non-parallel planes, see Figure 2 in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>.</li>
+</ul>
+<p>We will not proceed with this here—note that <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> consider the latter option in their paper—but two additional comments are in place:</p>
+<ul>
+<li>Adding such product terms quickly increases the number of parameters that we need to estimate; this reduces the power (especially relevant when dealing with small sample sizes).</li>
+<li>Before including interactions, one needs to center the covariates, and the interaction terms then needs to be centered again; failing to do so implies the main effect for treatment may not represent the average causal effect of treatment.</li>
 </ul>
 </section>
-<section id="using-propensity-scores-to-estimate-aces" class="level3">
-<h3 class="anchored" data-anchor-id="using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</h3>
-<p>This might be your first encounter with methods such as matching, weighting, and subclassification. Try to understand as much as possible from the text and write down questions that you have. We cover this topic in detail during the lecture and the lab exercises.</p>
+<section id="method-3-regression-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="method-3-regression-estimation">Method 3: Regression Estimation</h2>
+<p>Regression estimation is not the same as regression analysis (which was discussed above). In regression estimation, we make actual predictions of the potential outcomes that were not observed, and use these to compute the causal effect of interest.</p>
+<p>To use regression estimation, you have to:</p>
+<ol type="1">
+<li>Divide the data set into those who were treated and those who were not treated.</li>
+<li>Estimate a regression model (with all the covariates) in each group separately.</li>
+<li>Obtain the parameter estimates from each group; see Equations (13) and (14) in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>.</li>
+<li>Use these, and the covariates to predict the potential outcomes <span class="math inline">\(\hat{Y}^{0}\)</span> and <span class="math inline">\(\hat{Y}^1\)</span> for each person.</li>
+<li>Compute the average difference between these predicted potential outcomes.</li>
+</ol>
+<p>Hence, this approach is a technique to impute the missing values in the data file that only contains the potential outcomes that were observed. As this is a somewhat more challenging approach, some of the code will be presented immediately, so that you can work from there to answer the questions.</p>
+<p>We start with creating separate data sets for the two treatment groups, and running a regression analysis for each group separately:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, DIET<span class="sc">==</span><span class="dv">1</span>) <span class="co"># Diet group</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df0 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, DIET<span class="sc">==</span><span class="dv">0</span>) <span class="co"># Non-diet group</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression analysis with only people with X = 1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>mod_diet <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> DISTR<span class="fl">.2</span> <span class="sc">~</span> <span class="sc">+</span> DISTR<span class="fl">.1</span> <span class="sc">+</span> <span class="fu">as.factor</span>(BLACK) <span class="sc">+</span> <span class="fu">as.factor</span>(NBHISP) <span class="sc">+</span> GRADE <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    SLFHLTH <span class="sc">+</span> SLFWGHT <span class="sc">+</span> WORKHARD <span class="sc">+</span> GOODQUAL <span class="sc">+</span> PHYSFIT <span class="sc">+</span> PROUD <span class="sc">+</span> LIKESLF <span class="sc">+</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ACCEPTED <span class="sc">+</span> FEELLOVD,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df1</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression analysis with only people with X = 0</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>mod_nondiet <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> DISTR<span class="fl">.2</span> <span class="sc">~</span> <span class="sc">+</span> DISTR<span class="fl">.1</span> <span class="sc">+</span> <span class="fu">as.factor</span>(BLACK) <span class="sc">+</span> <span class="fu">as.factor</span>(NBHISP) <span class="sc">+</span> GRADE <span class="sc">+</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    SLFHLTH <span class="sc">+</span> SLFWGHT <span class="sc">+</span> WORKHARD <span class="sc">+</span> GOODQUAL <span class="sc">+</span> PHYSFIT <span class="sc">+</span> PROUD <span class="sc">+</span> LIKESLF <span class="sc">+</span> </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    ACCEPTED <span class="sc">+</span> FEELLOVD,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df0</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can obtain estimates for everyone (whether we observed <span class="math inline">\(X=1\)</span> or <span class="math inline">\(X=0\)</span>) for the potential outcome under treatment <span class="math inline">\(Y^1\)</span> and under no treatment <span class="math inline">\(Y^1\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict outcome for all cases using parameter estimates based on only diet group</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>preds_Y1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_diet, <span class="at">newdata =</span> df)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict outcome for all cases using parameter estimates based on only non-diet group</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>preds_Y0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_nondiet, <span class="at">newdata =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How can the results be used to estimate the ACE?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Above we have used the predicted potential outcomes for everyone. However, one of the potential outcomes is actually observed, and we could use that one instead of the predicted potential outcomes (i.e., we use the observed fact, and predict only the counterfact). Hence, for individuals in the no treatment condition you use the observed outcome <span class="math inline">\(Y\)</span> rather than predicted the predicted counterfact <span class="math inline">\(\hat{Y}^0\)</span>, and for those in the treatment condition you use the observed <span class="math inline">\(Y\)</span> instead of the predicted counterfact <span class="math inline">\(\hat{Y}^1\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>preds_Y0_onlyCounterfact <span class="ot">&lt;-</span> preds_Y0 <span class="co"># Copy predicted potential outcomes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>preds_Y0_onlyCounterfact[df<span class="sc">$</span>DIET<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>DISTR<span class="fl">.2</span>[df<span class="sc">$</span>DIET<span class="sc">==</span><span class="dv">0</span>] <span class="co"># Replace observed potential outcomes with factual</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>preds_Y1_onlyCounterfact <span class="ot">&lt;-</span> preds_Y1 <span class="co"># Copy predicted potential outcomes</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>preds_Y1_onlyCounterfact[df<span class="sc">$</span>DIET<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> df<span class="sc">$</span>DISTR<span class="fl">.2</span>[df<span class="sc">$</span>DIET<span class="sc">==</span><span class="dv">1</span>] <span class="co"># Replace observed potential outcomes with factual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Check whether this leads to a different result.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
 </section>
-<section id="discussion" class="level3">
-<h3 class="anchored" data-anchor-id="discussion">“Discussion”</h3>
-<p>The goal of an analysis is twofold (from a statistical perspective): (a) it should result in estimates that are as close as possible to the Truth, and (b) it should make efficient use of the data (i.e., you want small standard errors).</p>
-<ul>
-<li>Look at Table 6, which lists the estimated ACE for Methods 1 to 9. Ignoring Methods 7 to 9, which method came closest to the correct ACE for this one particular dataset?</li>
-<li>Which method made the least efficient use of the data? Which explanation do <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> give for this?</li>
-</ul>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In both Method 2 and 3 we have assumed linear relations between the covariates <span class="math inline">\(Z\)</span> and the outcome <span class="math inline">\(Y\)</span>. This is a parametric assumption that we make in Phase III additional to the causal identification assumptions made in Phase II.</p>
 
 
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -804,13 +1052,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./week3_lab_noAnswers.html" class="pagination-link" aria-label="Lab exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lab exercises</span>
+      <a href="./week3_literature.html" class="pagination-link" aria-label="Literature">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./week4_lab.html" class="pagination-link" aria-label="Lab exercises">
-        <span class="nav-page-text">Lab exercises</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./week4_literature.html" class="pagination-link" aria-label="Literature">
+        <span class="nav-page-text">Literature</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

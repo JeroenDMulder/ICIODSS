@@ -283,7 +283,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week3_lab.html" class="sidebar-item-text sidebar-link">
+  <a href="./week3_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -453,13 +453,13 @@ window.Quarto = {
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data file</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           C         Y1 X1          Y2 X2          Y3 X3    final.Y
-1 -0.4307650  0.9366820  0  1.01472726  1  3.17041772  0 2.15273026
-2 -0.5388067  0.6287427  0  0.49198345  1 -0.08188128  1 0.83108302
-3 -1.6570079 -1.3690326  1  1.35005600  1 -0.76794404  0 0.87649625
-4  0.5406333  0.0612319  0  0.08517981  0 -0.97512726  1 0.44893227
-5 -0.1209254  0.2126818  0  0.64746529  1 -0.11335458  0 1.11281897
-6 -1.4298529 -1.0211939  0 -0.36381598  1 -1.42646734  1 0.08860176</code></pre>
+<pre><code>            C         Y1 X1         Y2 X2         Y3 X3     final.Y
+1  0.24004077  0.6471694  1 -0.5996336  1  2.5107694  0 -0.65827136
+2 -0.11722974 -0.5720994  1 -0.2273565  0  0.7757329  1  0.12343242
+3  0.05953551 -0.3344993  1  0.2154186  1 -1.5722877  1  2.34813455
+4  0.23426540  1.1919513  1 -0.4246248  1  2.0771984  1  0.03394718
+5  0.71366542  0.3355264  0  0.3154102  0  0.6826787  0  0.17541073
+6 -0.19043062 -1.1786531  1  1.2225490  0 -1.9858915  1  0.79285896</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -625,22 +625,22 @@ glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1 + Y2 + Y3, data = data)
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.0008066  0.0017568   0.459    0.646    
-C            0.0002806  0.0011663   0.241    0.810    
-X1           0.0020261  0.0023089   0.878    0.380    
-X2           0.1483650  0.0021749  68.216   &lt;2e-16 ***
-X3           0.2972908  0.0021447 138.616   &lt;2e-16 ***
-Y1          -0.0012272  0.0012872  -0.953    0.340    
-Y2           0.8006528  0.0010086 793.789   &lt;2e-16 ***
-Y3           0.1010847  0.0009990 101.182   &lt;2e-16 ***
+(Intercept)  0.0016637  0.0017607   0.945    0.345    
+C           -0.0008415  0.0011689  -0.720    0.472    
+X1           0.0010173  0.0023137   0.440    0.660    
+X2           0.1453574  0.0021791  66.705   &lt;2e-16 ***
+X3           0.3007164  0.0021476 140.027   &lt;2e-16 ***
+Y1           0.0001269  0.0012876   0.099    0.921    
+Y2           0.8003581  0.0010099 792.512   &lt;2e-16 ***
+Y3           0.1019488  0.0010014 101.811   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 0.9983968)
+(Dispersion parameter for gaussian family taken to be 1.002125)
 
-    Null deviance: 1804725  on 999999  degrees of freedom
-Residual deviance:  998389  on 999992  degrees of freedom
-AIC: 2836283
+    Null deviance: 1809666  on 999999  degrees of freedom
+Residual deviance: 1002117  on 999992  degrees of freedom
+AIC: 2840010
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -671,20 +671,20 @@ glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1, data = data)
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.0500521  0.0022638 -22.110   &lt;2e-16 ***
-C            0.0008057  0.0015038   0.536    0.592    
-X1           0.2292834  0.0029516  77.681   &lt;2e-16 ***
-X2           0.1433133  0.0027772  51.604   &lt;2e-16 ***
-X3           0.4573594  0.0027537 166.090   &lt;2e-16 ***
-Y1           0.1565765  0.0012961 120.806   &lt;2e-16 ***
+(Intercept) -0.0499385  0.0022673 -22.025   &lt;2e-16 ***
+C           -0.0002434  0.0015063  -0.162    0.872    
+X1           0.2277007  0.0029559  77.032   &lt;2e-16 ***
+X2           0.1418434  0.0027808  51.007   &lt;2e-16 ***
+X3           0.4614319  0.0027555 167.459   &lt;2e-16 ***
+Y1           0.1578809  0.0012952 121.900   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 1.660008)
+(Dispersion parameter for gaussian family taken to be 1.664074)
 
-    Null deviance: 1804725  on 999999  degrees of freedom
-Residual deviance: 1659999  on 999994  degrees of freedom
-AIC: 3344708
+    Null deviance: 1809666  on 999999  degrees of freedom
+Residual deviance: 1664064  on 999994  degrees of freedom
+AIC: 3347154
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -895,20 +895,20 @@ Call:
 glm(formula = final.Y ~ X1 + X2 + X3 + Y1, data = data, weights = ipw.123)
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 0.002940   0.002583   1.138    0.255    
-X1          0.257430   0.002583  99.669   &lt;2e-16 ***
-X2          0.178391   0.002583  69.067   &lt;2e-16 ***
-X3          0.297440   0.002583 115.159   &lt;2e-16 ***
-Y1          0.160006   0.001200 133.369   &lt;2e-16 ***
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 0.0002725  0.0025865   0.105    0.916    
+X1          0.2580180  0.0025856  99.789   &lt;2e-16 ***
+X2          0.1796098  0.0025856  69.464   &lt;2e-16 ***
+X3          0.3013792  0.0025856 116.559   &lt;2e-16 ***
+Y1          0.1619482  0.0011980 135.186   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.33992)
+(Dispersion parameter for gaussian family taken to be 13.37652)
 
-    Null deviance: 13949946  on 999999  degrees of freedom
-Residual deviance: 13339852  on 999995  degrees of freedom
-AIC: 3559425
+    Null deviance: 14000830  on 999999  degrees of freedom
+Residual deviance: 13376455  on 999995  degrees of freedom
+AIC: 3562022
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -919,21 +919,21 @@ Call:
 glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1, data = data, weights = ipw.123)
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 0.002942   0.002583   1.139 0.254597    
-C           0.005134   0.001390   3.694 0.000221 ***
-X1          0.257421   0.002583  99.666  &lt; 2e-16 ***
-X2          0.178382   0.002583  69.064  &lt; 2e-16 ***
-X3          0.297444   0.002583 115.162  &lt; 2e-16 ***
-Y1          0.158241   0.001291 122.538  &lt; 2e-16 ***
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 0.0002721  0.0025865   0.105    0.916    
+C           0.0027100  0.0013886   1.952    0.051 .  
+X1          0.2580277  0.0025856  99.792   &lt;2e-16 ***
+X2          0.1796100  0.0025856  69.465   &lt;2e-16 ***
+X3          0.3013755  0.0025856 116.558   &lt;2e-16 ***
+Y1          0.1610164  0.0012896 124.858   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.33975)
+(Dispersion parameter for gaussian family taken to be 13.37648)
 
-    Null deviance: 13949946  on 999999  degrees of freedom
-Residual deviance: 13339670  on 999994  degrees of freedom
-AIC: 3559413
+    Null deviance: 14000830  on 999999  degrees of freedom
+Residual deviance: 13376404  on 999994  degrees of freedom
+AIC: 3562020
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -944,20 +944,20 @@ Call:
 glm(formula = final.Y ~ C + X1 + X2 + X3, data = data, weights = ipw.123)
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 0.003170   0.002602   1.218    0.223    
-C           0.068146   0.001301  52.386   &lt;2e-16 ***
-X1          0.257306   0.002602  98.882   &lt;2e-16 ***
-X2          0.178331   0.002602  68.532   &lt;2e-16 ***
-X3          0.297378   0.002602 114.281   &lt;2e-16 ***
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 3.814e-05  2.607e-03   0.015    0.988    
+C           6.690e-02  1.300e-03  51.463   &lt;2e-16 ***
+X1          2.588e-01  2.606e-03  99.311   &lt;2e-16 ***
+X2          1.798e-01  2.606e-03  68.985   &lt;2e-16 ***
+X3          3.012e-01  2.606e-03 115.610   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.54004)
+(Dispersion parameter for gaussian family taken to be 13.585)
 
-    Null deviance: 13949946  on 999999  degrees of freedom
-Residual deviance: 13539973  on 999995  degrees of freedom
-AIC: 3574315
+    Null deviance: 14000830  on 999999  degrees of freedom
+Residual deviance: 13584936  on 999995  degrees of freedom
+AIC: 3577487
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
