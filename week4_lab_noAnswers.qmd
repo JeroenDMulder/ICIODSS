@@ -1,0 +1,177 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 4: Rubin Causal Model (Part II)"
+author: 
+- Ellen L. Hamaker
+- Jeroen D. Mulder
+editor: source
+bibliography: references.bib
+---
+
+In these exercises, we continue with the analyses discussed in @schafer_average_2008, focusing on Methods 4 to 6. 
+
+## Setup
+In this practical you will make use of various R packages. If you haven’t already, install the packages `tableone`, `MatchIt`, and `survey` using `install.packages(c("tableone", "MatchIt", "survey"))`. 
+
+Load the data, which are in the data file called `SchaferKangData.dat`. Take a look at the data set. See Table 3 in @schafer_average_2008 for a description of the variables.
+
+```{r setup, eval = FALSE}
+df <- read.table("SchaferKangData.dat", header = TRUE)
+head(df, n = 10)
+```
+There are various alternative techniques that are all based on using the propensity scores: This is an individual’s probability of treatment based on their scores on the covariates, $P(X=1|Z=Z)$. If we know how likely a person was to receive treatment, we can use this information to mimic a randomized controlled trial (in which everyone has the same probability of receiving treatment). @schafer_average_2008 consider three common techniques for this:
+
+- Method 4: Matching, in which we try to create pairs of a treated and an untreated individual that have the same propensity score. 
+- Method 5: Inverse probability weighting, in which we create a pseudo-population that is balanced on the covariates. 
+- Method 6: Subclassification or stratification, in which we create strata in which there are no (meaningful) differences in the covariates left. 
+
+Regardless of the choise of method, we need to estimate propensity scores first. 
+
+## Estimate Propensity Scores
+To compute a propensity score, run a logistic regression model in which the treatment variable $X$ (which has values 0 and 1) is the outcome variable, and the covariates are the predictors. Make sure to save the probability for each person for scoring 1 on X (here `DIET`). You can use the `glm()` function from the stats package for this, setting the `family` argument to `family = binomial()`. 
+
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Logistic Propensity Score Model
+
+```{r PS-logistic, eval = FALSE}
+# Run logistic regression analysis
+mod_logistic <- glm(
+  formula = DIET ~ DISTR.1 + as.factor(BLACK) + as.factor(NBHISP) + GRADE + 
+    SLFHLTH + SLFWGHT + WORKHARD + GOODQUAL + PHYSFIT + PROUD + LIKESLF + 
+    ACCEPTED + FEELLOVD,
+  family = binomial(), 
+  data = df
+)
+
+# Obtain a prediction of the probability of treatment (i.e., DIET = 1) 
+ps <- predict(mod_logistic, type = "response")
+
+# Add this predicted probability to the data file
+df$ps <- ps
+
+# Look at the data file 
+round(df[1:10,], 2)
+```
+
+The last column in the data file now contains the predicted probability of being treated, based on the covariates.
+:::
+
+Now that we have the propensity scores, we should first consider the distribution of propensity scores in each of the treatment groups separately, to determine whether there is overlap between the propensity scores of the two groups.
+
+::: {.callout-note icon=false collapse=true}
+
+## Make a histogram to look at this, discuss what you see, and why this is important.
+
+:::
+
+Now that we have determined the propensity scores and their distributions for the the treated and the non-treated overlap well, we can make use of these scores within different techniques.
+
+## Method 4: Matching
+Matching based on the propensity scores is the first technique in this category that we consider. It is based on finding people in the both treatment groups that have similar propensity scores: The idea is that these individuals are comparable on the entire set of covariates, and can thus be considered randomly assigned to the two condition.
+
+In practice, this is done by taking a person from the smallest of the two groups (here the group for which `DIET=1`), and finding a person in the other group that is most like this person in terms of their propensity score. We can do this using the function `matchit()` from the R package MatchIt. Please note that this will give us slightly different results than those obtained by @schafer_average_2008.
+
+To run the matching function, we plug in the same expression as we used above to obtain the propensity scores, and use `method = "nearest"`:
+
+```{r method4-matchIt, eval = FALSE}
+# Load the package
+library(MatchIt)
+
+# Run matching model
+mod_matched <- matchit(
+  formula = DIET ~ DISTR.1 + as.factor(BLACK) + as.factor(NBHISP) + GRADE + 
+    SLFHLTH + SLFWGHT + WORKHARD + GOODQUAL + PHYSFIT + PROUD + LIKESLF + 
+    ACCEPTED + FEELLOVD, 
+  method = "nearest",  
+  data = df
+)
+
+mod_matched
+```
+
+::: {.callout-note icon=false collapse=true}
+
+## Describe the information that is included in the output.
+
+:::
+
+There are two useful plotting options regarding the propensity scores of our matched pairs: `plot(mod_matched, type = "jitter")` and  `plot(mod_matched, type = "hist")`. 
+
+::: {.callout-note icon=false collapse=true}
+
+## Get both plots, and describe what they represent.
+
+:::
+
+To do the analysis on the matched cases only, we need to create a new data file with only the matched cases, using `df_matched <- match.data(mod_matched)`. 
+
+::: {.callout-note icon=false collapse=true}
+
+## Create the Table 1 for this matched data set. What can you conclude?
+
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Investigate with a t-test whether the means on the outcome variable `DISTR.2` differ among the matched cases.
+
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Compare this result to the mean comparison you did at the start. Explain why the mean differences that you have just determined is an estimate of the ACE$_{1}$ rather than of the ACE.
+
+:::
+
+## Method 5: Inverse Probability Weighting
+We can also use inverse probability weighting (IPW). In this case, the estimated propensity scores $\pi_{i}$ are used to determine the probability that an individual $i$ would have received the treatment that they received:
+
+- For the treated ($X_{i} = 1$), this is simply $\hat{\pi}_{i}$. 
+- For the non-treated ($X_{i} = 0$) this is $1 − \hat{\pi}_{i}$.
+
+We can use these probabilities to create weights. The weight are computed by taking the inverse of the propensities (hence, the name). That way, a case that received a treatment that they was very likely to receive, will get a small weight, while a case that received a treatment that they was very unlikely to receive, will get a large weight. Thus, the inverse probability weight indicates the number of persons from the population that this person represents:
+
+- For the treated, this weight is $\frac{1}{\hat{\pi}_{i}$.
+- For the untreated, it is $\frac{1}{1 - \hat{\pi}_{i}$
+
+::: {.callout-note icon=false collapse=true}
+
+## Compute the ACE using IPW. More specifically, use the propensity scores that we estimated earlier, and Equation 20 of @schafer_average_2008. 
+
+:::
+
+
+## Method 6: Subclassification
+Subclassification, also known as *stratification* and closely related to the idea of *standardization* in the causal inference literature, is a method that consists of creating classes (strata) based on the propensity scores. The idea is that the individuals within each stratum are rather similar with respect to their propensity score, and thus with respect to the entire set of covariates on which the propensity score is based. If the covariates are well-balanced within each stratum, this is a way to mimic an RCT within each stratum. By subsequently estimating the ACE in each stratum (using a mean comparison such as Method 1, or an ANCOVA or regression analysis such as Method 2), we can determine the causal effect for individuals who are similar with regard to the entire set of covariates (as these are used to determine the propensity scores).
+
+::: {.callout-note icon=false collapse=true}
+
+## Begin with creating five strata based on the propensity scores (for instance, use the function `cut()` in R). Each stratum should contain 20% of the (total number of) observations.
+
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Next, compute the ACE in each stratum based on the mean difference.
+
+:::
+
+
+::: {.callout-note icon=false collapse=true}
+
+## Subsequently, you can compute the overall ACE by taking the average of the stratum-specific ACE's (weighted by the stratum size).
+
+:::
+
+## Conclusion
+The three methods that we considered in this lab are all based on using the propensity score, that is, the probability of being treated given the covariates. The goal of these techniques is to somehow mimic the situation we get in an RCT, where **the probability of treatment is independent of the covariates**. In matching, this is done by creating pairs of a treated and an untreated person who have (almost) identical propensity scores, resulting in a smaller but balanced dataset; in inverse probability weighting, this is done by weighing each person’s observation by their inverse probability of received treatment, thereby creating a balanced pseudo-population; and in subclassification this is done by creating strata based on the propensity scores such that within each stratum the covariates are balanced. In each approach, we should check whether it balances the covariates, for instance, by considering the standardized mean differences. Other options for assessing covariate imbalance are described by @austin_balance_2009. 
+
+
+
+

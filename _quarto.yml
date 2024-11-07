@@ -40,19 +40,19 @@ website:
         contents:
           - href: week4_literature.qmd
             text: "Literature"
-          - href: week4_lab.qmd
+          - href: week4_lab_noAnswers.qmd
             text: "Lab exercises"
       - section: "Week 5: MSMs and Time-Varying Exposures"
         contents: 
           - href: week5_literature.qmd
             text: "Literature"
-          - href: week5_lab.qmd
+          - href: week5_lab_noAnswers.qmd
             text: "Lab exercises"
       - section: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
         contents:
           - href: week6_literature.qmd
             text: "Literature"
-          - href: week6_lab.qmd
+          - href: week6_lab_noAnswers.qmd
             text: "Lab exercises"
       - text: -------
       - href: assignment.qmd

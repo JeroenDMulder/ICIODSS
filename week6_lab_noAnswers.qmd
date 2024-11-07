@@ -1,0 +1,183 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
+author: 
+- Jeroen D. Mulder
+editor: source
+bibliography: references.bib
+---
+
+In this lab, you practice with Phase III of a causal research project, specifically estimating causal effects of time-varying exposures using inverse probability weighting (IPW)-estimation of the parameters in a marginal structural model (MSM). To this end, we will be using simulated data again. 
+
+We will investigate the joint effect of a time-varying binary exposure (measured at three occasions) on a continuous distal outcome. Examples of this are the joint effect of
+
+- church attendance on depressive symptoms (measured continuously, rather than dichotomously as in the empirical example);
+- Ritalin use or physical punishment (by the parents) on behavioral problems (of the child);
+- establishing a gender quota in a company on the percentage of women working there; and
+- drug use on academic achievement in adolescents. 
+
+In all these cases, the exposure is a binary variable that may vary over time, and that may affect the final outcome at the end of the study directly or indirectly through shaping earlier realizations of the outcome variable. 
+
+## Structural Relations (truth)
+
+Consider the R code below that we will use to simulate data.  
+
+```{r data-generation, echo=T, eval=T, message=F, include=T}
+N <- 1000000
+C <- rnorm(N)
+
+data <- data.frame(C)
+
+# Simulate data for first wave
+data$Y1 <- .4*C + rnorm(N)
+data$X1 <- rbinom(n = N, size=1, prob = plogis(C))
+
+# Simulate data for the second wave
+data$Y2 <- 0.1 * data$Y1 + 0.3 * data$X1 + rnorm(N)
+data$X2 <- rbinom(n = N, size=1, prob = 
+		plogis(-.8 + 0.2 * data$Y1 + 1 * data$X1))
+
+# Simulate data for the third wave
+data$Y3 <- 0.1 * data$Y2 + 0.3 * data$X2 + 
+		0.8 * data$Y1 + 0.15 * data$X1 + rnorm(N)
+data$X3 <- rbinom(n = N, size=1, prob = 
+		plogis(-.8 + 0.2 * data$Y2 + 1 * data$X2 +
+			0.1 * data$Y1 + 0.8 * data$X1))
+
+# Simulate the final outcome
+data$final.Y <- 0.1 * data$Y3 + 0.3 * data$X3 + 0.8 * data$Y2 + 
+			0.15 * data$X2 + rnorm(N)
+
+# Check the data file
+head(data)
+```
+
+::: {.callout-note collapse="true" icon=false}
+## Draw the causal DAG that is encode in the R code above.
+
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{1}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{1}$ on $Y_{4}$.
+
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{2}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{2}$ on $Y_{4}$.
+
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Indicate which causal paths there are from $X_{3}$ to $Y_{4}$ and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of $X_{3}$ on $Y_{4}$. 
+
+:::
+
+## Standard linear regression
+
+We want to estimate the effect of exposure over occasions 1 to 3 on an end-of-study outcome $Y_{4}$. The previous measures of $Y$ can be regarded as time-varying covariates. 
+
+::: {.callout-note collapse="true" icon=false}
+
+## For $Y_{1}$, $Y_{2}$, and $Y_{3}$, discuss whether one should control for them, or not. 
+
+:::
+
+Before we consider a more sophisticated approach to this problem, we begin with considering two simpler models. Each of these is associated with a specific form of bias in estimating the causal effect of the time-varying exposure on $Y_{4}$.
+
+::: {.callout-note collapse="true" icon=false}
+
+## Run a regression model with the time-varying covariates included. 
+
+:::
+
+::: {.callout-note collapse="true" icon=false}
+
+## Run a regression model without the time-varying covariates.
+
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+
+## Compare the results of these two models. 
+
+:::
+
+## IPW estimation
+
+We will now use the marginal structural model as described by @vanderweele_causal_2016. 
+
+::: {.callout-note collapse="true" icon=false}
+## First, compute the propensity score (i.e., the probability of receiving exposure) at wave 1, wave 2, and 3 *using logistic regression*. For each of these, you should include all prior versions of $X$ and the covariate $Y$, and all time-invariant (or baseline) covariates (here $C$). 
+
+:::
+
+Note that strictly speaking, for this particular model (as shown in the DAG), we would not need to include C to estimate the propensity scores at wave 2 and wave 3. 
+
+::: {.callout-note collapse="true" icon=false}
+
+## Explain why not, and whether it matters that we include it here.
+
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## Make histograms for the propensity scores of the treated and the untreated at wave 2 and wave 3. What does this show? 
+
+```{r PSs-histogram, echo=T, eval=F, message=F}
+# Plot the propensity scores at each wave
+M<-matrix(c(1:3),1,3, byrow = FALSE)
+layout(M)
+
+for (t in 1:3)
+{	k <- subset(data, select = c(paste0("X", t)))
+	data.1 <- data[ which(k == 1), ]
+	data.0 <- data[ which(k == 0), ]
+	ps.t.1 <- subset(data.1, select = c(paste0("ps", t)))
+	ps.t.0 <- subset(data.0, select = c(paste0("ps", t)))
+	hist0 <- hist(as.numeric(ps.t.1[[1]]), breaks=30, plot=FALSE)
+	hist1 <- hist(ps.t.0[[1]], breaks=30, plot=FALSE)
+	title <- paste0("Propensity scores at wave ", t)
+	plot( hist1, col=rgb(0,0,1,1/4), xlim=c(0,1), 
+    		xlab="Propensity score", main=title)  
+	plot( hist0, col=rgb(0,1,0,1/4), xlim=c(0,1), add=T) 
+}
+```
+
+It shows that the distribution of the propensity scores for the treated and the untreated overlap well (assumption of positivity), at each occasion.
+:::
+
+Recall that the *unstabilized* inverse probability weights at a specific time point are computed as
+$$
+W_{it} = X_{it} \frac{1}{P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}]} + (1 - X_{it})\frac{1}{(1 - P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}])}.
+$$ 
+From these wave-specific weights, compute the overall weight, by taking the product of the wave-specific weights. 
+
+::: {.callout-note collapse="true" icon=false}
+## Compute the weights. 
+
+:::
+
+Finally, we can run a regression model with $Y_{4}$ as the outcome variable, and $X_1$, $X_2$, $X_3$, and $Y_1$ as its predictors, using the total weights computed above.
+
+::: {.callout-note collapse="true" icon=false}
+
+## Estimate the parameters of the MSM.
+
+:::
+
+
+## Conclusion
+
+Compare the results from the marginal structural model to the results from the other two models. 
+
+::: {.callout-note collapse="true" icon=false}
+## What does this show you?
+
+:::
+
+Why IPW estimation of an MSM works, and how it accounts for time-dependent confounding without blocking the relevant mediation paths, is not easy to see, or to even get some intuition for. But recall that in week 2 we learned that by using IPW, we create a balanced sample (also sometimes referred to as a *pseudo population*) that, within a certain level of the confounder, has an equal number of individuals in each exposure group. That implied that in this balance sample, we have $P[X_{it} = 1] = 0.5$ for everyone. This balancing property of IPW is therefore a way to mimic an RCT. Balancing thus removes the arrows that point into the exposure nodes (again, as would be the case in an RCT).   
+
+## Some useful R packages
+For these exercises we have made use of base R functions. This is helpful to get a better understanding of how IPW estimation actually works. However, there exist many useful packages that can help with assessing covariate (im)balance, and with creating inverse probability weights. I highly recommend the packages `cobalt` and `WeightIt` by Noah Greifer, as they have excellent documentation online that can help you use more advanced IPW-related techniques. You might consider using these packages for assignment 2. 

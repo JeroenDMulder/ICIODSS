@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ellen L. Hamaker">
+<meta name="author" content="Jeroen D. Mulder">
 
-<title>Literature – ICIODSS (2024/25)</title>
+<title>Lab Exercises – ICIODSS (2024/25)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +86,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./week4_lab_noAnswers.html" rel="next">
-<link href="./week3_lab_noAnswers.html" rel="prev">
+<link href="./week5_literature.html" rel="next">
+<link href="./week4_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,6 +125,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -102,7 +167,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -237,13 +302,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link active">
+  <a href="./week4_literature.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Literature</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week4_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week4_lab_noAnswers.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -312,21 +377,21 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reading-aid" id="toc-reading-aid" class="nav-link active" data-scroll-target="#reading-aid">Reading Aid</a>
-  <ul class="collapse">
-  <li><a href="#introduction-to-propensity-scores" id="toc-introduction-to-propensity-scores" class="nav-link" data-scroll-target="#introduction-to-propensity-scores">“Introduction to Propensity Scores”</a></li>
-  <li><a href="#using-propensity-scores-to-estimate-aces" id="toc-using-propensity-scores-to-estimate-aces" class="nav-link" data-scroll-target="#using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">“Discussion”</a></li>
-  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#estimate-propensity-scores" id="toc-estimate-propensity-scores" class="nav-link" data-scroll-target="#estimate-propensity-scores">Estimate Propensity Scores</a></li>
+  <li><a href="#method-4-matching" id="toc-method-4-matching" class="nav-link" data-scroll-target="#method-4-matching">Method 4: Matching</a></li>
+  <li><a href="#method-5-inverse-probability-weighting" id="toc-method-5-inverse-probability-weighting" class="nav-link" data-scroll-target="#method-5-inverse-probability-weighting">Method 5: Inverse Probability Weighting</a></li>
+  <li><a href="#method-6-subclassification" id="toc-method-6-subclassification" class="nav-link" data-scroll-target="#method-6-subclassification">Method 6: Subclassification</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_literature.html">Literature</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Literature</h1>
+<h1 class="title">Lab Exercises</h1>
 <p class="subtitle lead">Week 4: Rubin Causal Model (Part II)</p>
 </div>
 
@@ -334,6 +399,13 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ellen L. Hamaker </p>
+             <p>Jeroen D. Mulder </p>
+          </div>
+  </div>
     
   
     
@@ -344,40 +416,276 @@ div.csl-indent {
 </header>
 
 
-<p>Please read the second part of the below article, specifically the sections “Introduction to Propensity Scores” and “Discussion” (you can skip the section “Dual-Modeling Strategies”). Use the reading aid and reading questions to help you get a better understanding of the main points of the text.</p>
-<blockquote class="blockquote">
-<p>Schafer, J. L., &amp; Kang, J. (2008). Average Causal Effects From Nonrandomized Studies: A Practical Guide and Simulated Example. <em>Psychological Methods, 13</em>(4), 279-313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a></p>
-</blockquote>
-<section id="reading-aid" class="level2">
-<h2 class="anchored" data-anchor-id="reading-aid">Reading Aid</h2>
-<p>This week we continue our treatment of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, now focusing on Methods 4 to 6 which center around the use of propensity scores. Use the reading questions below to help you understand the main points of each section.</p>
-<section id="introduction-to-propensity-scores" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-propensity-scores">“Introduction to Propensity Scores”</h3>
+<p>In these exercises, we continue with the analyses discussed in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>, focusing on Methods 4 to 6.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>In this practical you will make use of various R packages. If you haven’t already, install the packages <code>tableone</code>, <code>MatchIt</code>, and <code>survey</code> using <code>install.packages(c("tableone", "MatchIt", "survey"))</code>.</p>
+<p>Load the data, which are in the data file called <code>SchaferKangData.dat</code>. Take a look at the data set. See Table 3 in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> for a description of the variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"SchaferKangData.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are various alternative techniques that are all based on using the propensity scores: This is an individual’s probability of treatment based on their scores on the covariates, <span class="math inline">\(P(X=1|Z=Z)\)</span>. If we know how likely a person was to receive treatment, we can use this information to mimic a randomized controlled trial (in which everyone has the same probability of receiving treatment). <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> consider three common techniques for this:</p>
 <ul>
-<li>On page 294, it is mentioned that propensity score-based analysis techniques are “(…) in part a reaction to misapplications of ANCOVA, where analysts were often unaware of the sensitivity of their results to model failure.” What is meant by this?</li>
-<li>On page 294, <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> mention that “Girls who consider themselves overweight were more likely to diet.”. Based on this information, would a girl who considers herself overweight receive a relatively low or a relatively high propensity score?</li>
-<li>Which analysis technique was used to predict the propensity scores? What is the outcome in this analysis, and what are the predictors?</li>
-<li>Suppose that we do a randomized controlled trial, and then compute propensity scores for treated and untreated based on all kinds of background variables. What can you say about the distribution of propensity scores in both groups in this context?</li>
+<li>Method 4: Matching, in which we try to create pairs of a treated and an untreated individual that have the same propensity score.</li>
+<li>Method 5: Inverse probability weighting, in which we create a pseudo-population that is balanced on the covariates.</li>
+<li>Method 6: Subclassification or stratification, in which we create strata in which there are no (meaningful) differences in the covariates left.</li>
 </ul>
+<p>Regardless of the choise of method, we need to estimate propensity scores first.</p>
 </section>
-<section id="using-propensity-scores-to-estimate-aces" class="level3">
-<h3 class="anchored" data-anchor-id="using-propensity-scores-to-estimate-aces">“Using Propensity Scores to Estimate ACEs”</h3>
-<p>This might be your first encounter with methods such as matching, weighting, and subclassification. Try to understand as much as possible from the text and write down questions that you have. We cover this topic in detail during the lecture and the lab exercises.</p>
+<section id="estimate-propensity-scores" class="level2">
+<h2 class="anchored" data-anchor-id="estimate-propensity-scores">Estimate Propensity Scores</h2>
+<p>To compute a propensity score, run a logistic regression model in which the treatment variable <span class="math inline">\(X\)</span> (which has values 0 and 1) is the outcome variable, and the covariates are the predictors. Make sure to save the probability for each person for scoring 1 on X (here <code>DIET</code>). You can use the <code>glm()</code> function from the stats package for this, setting the <code>family</code> argument to <code>family = binomial()</code>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Logistic Propensity Score Model
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run logistic regression analysis</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mod_logistic <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> DIET <span class="sc">~</span> DISTR<span class="fl">.1</span> <span class="sc">+</span> <span class="fu">as.factor</span>(BLACK) <span class="sc">+</span> <span class="fu">as.factor</span>(NBHISP) <span class="sc">+</span> GRADE <span class="sc">+</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    SLFHLTH <span class="sc">+</span> SLFWGHT <span class="sc">+</span> WORKHARD <span class="sc">+</span> GOODQUAL <span class="sc">+</span> PHYSFIT <span class="sc">+</span> PROUD <span class="sc">+</span> LIKESLF <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    ACCEPTED <span class="sc">+</span> FEELLOVD,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(), </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain a prediction of the probability of treatment (i.e., DIET = 1) </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ps <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_logistic, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add this predicted probability to the data file</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>ps <span class="ot">&lt;-</span> ps</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the data file </span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(df[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,], <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The last column in the data file now contains the predicted probability of being treated, based on the covariates.</p>
+</div>
+</div>
+</div>
+<p>Now that we have the propensity scores, we should first consider the distribution of propensity scores in each of the treatment groups separately, to determine whether there is overlap between the propensity scores of the two groups.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Make a histogram to look at this, discuss what you see, and why this is important.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Now that we have determined the propensity scores and their distributions for the the treated and the non-treated overlap well, we can make use of these scores within different techniques.</p>
 </section>
-<section id="discussion" class="level3">
-<h3 class="anchored" data-anchor-id="discussion">“Discussion”</h3>
-<p>The goal of an analysis is twofold (from a statistical perspective): (a) it should result in estimates that are as close as possible to the Truth, and (b) it should make efficient use of the data (i.e., you want small standard errors).</p>
+<section id="method-4-matching" class="level2">
+<h2 class="anchored" data-anchor-id="method-4-matching">Method 4: Matching</h2>
+<p>Matching based on the propensity scores is the first technique in this category that we consider. It is based on finding people in the both treatment groups that have similar propensity scores: The idea is that these individuals are comparable on the entire set of covariates, and can thus be considered randomly assigned to the two condition.</p>
+<p>In practice, this is done by taking a person from the smallest of the two groups (here the group for which <code>DIET=1</code>), and finding a person in the other group that is most like this person in terms of their propensity score. We can do this using the function <code>matchit()</code> from the R package MatchIt. Please note that this will give us slightly different results than those obtained by <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>.</p>
+<p>To run the matching function, we plug in the same expression as we used above to obtain the propensity scores, and use <code>method = "nearest"</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the package</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MatchIt)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run matching model</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mod_matched <span class="ot">&lt;-</span> <span class="fu">matchit</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> DIET <span class="sc">~</span> DISTR<span class="fl">.1</span> <span class="sc">+</span> <span class="fu">as.factor</span>(BLACK) <span class="sc">+</span> <span class="fu">as.factor</span>(NBHISP) <span class="sc">+</span> GRADE <span class="sc">+</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    SLFHLTH <span class="sc">+</span> SLFWGHT <span class="sc">+</span> WORKHARD <span class="sc">+</span> GOODQUAL <span class="sc">+</span> PHYSFIT <span class="sc">+</span> PROUD <span class="sc">+</span> LIKESLF <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ACCEPTED <span class="sc">+</span> FEELLOVD, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"nearest"</span>,  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>mod_matched</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Describe the information that is included in the output.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>There are two useful plotting options regarding the propensity scores of our matched pairs: <code>plot(mod_matched, type = "jitter")</code> and <code>plot(mod_matched, type = "hist")</code>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Get both plots, and describe what they represent.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>To do the analysis on the matched cases only, we need to create a new data file with only the matched cases, using <code>df_matched &lt;- match.data(mod_matched)</code>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Create the Table 1 for this matched data set. What can you conclude?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Investigate with a t-test whether the means on the outcome variable <code>DISTR.2</code> differ among the matched cases.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compare this result to the mean comparison you did at the start. Explain why the mean differences that you have just determined is an estimate of the ACE<span class="math inline">\(_{1}\)</span> rather than of the ACE.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section>
+<section id="method-5-inverse-probability-weighting" class="level2">
+<h2 class="anchored" data-anchor-id="method-5-inverse-probability-weighting">Method 5: Inverse Probability Weighting</h2>
+<p>We can also use inverse probability weighting (IPW). In this case, the estimated propensity scores <span class="math inline">\(\pi_{i}\)</span> are used to determine the probability that an individual <span class="math inline">\(i\)</span> would have received the treatment that they received:</p>
 <ul>
-<li>Look at Table 6, which lists the estimated ACE for Methods 1 to 9. Ignoring Methods 7 to 9, which method came closest to the correct ACE for this one particular dataset?</li>
-<li>Which method made the least efficient use of the data? Which explanation do <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> give for this?</li>
+<li>For the treated (<span class="math inline">\(X_{i} = 1\)</span>), this is simply <span class="math inline">\(\hat{\pi}_{i}\)</span>.</li>
+<li>For the non-treated (<span class="math inline">\(X_{i} = 0\)</span>) this is <span class="math inline">\(1 − \hat{\pi}_{i}\)</span>.</li>
 </ul>
+<p>We can use these probabilities to create weights. The weight are computed by taking the inverse of the propensities (hence, the name). That way, a case that received a treatment that they was very likely to receive, will get a small weight, while a case that received a treatment that they was very unlikely to receive, will get a large weight. Thus, the inverse probability weight indicates the number of persons from the population that this person represents:</p>
+<ul>
+<li>For the treated, this weight is <span class="math inline">\(\frac{1}{\hat{\pi}_{i}\)</span>.</li>
+<li>For the untreated, it is <span class="math inline">\(\frac{1}{1 - \hat{\pi}_{i}\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compute the ACE using IPW. More specifically, use the propensity scores that we estimated earlier, and Equation 20 of <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span>.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 
-
-
+</div>
+</div>
+</div>
 </section>
+<section id="method-6-subclassification" class="level2">
+<h2 class="anchored" data-anchor-id="method-6-subclassification">Method 6: Subclassification</h2>
+<p>Subclassification, also known as <em>stratification</em> and closely related to the idea of <em>standardization</em> in the causal inference literature, is a method that consists of creating classes (strata) based on the propensity scores. The idea is that the individuals within each stratum are rather similar with respect to their propensity score, and thus with respect to the entire set of covariates on which the propensity score is based. If the covariates are well-balanced within each stratum, this is a way to mimic an RCT within each stratum. By subsequently estimating the ACE in each stratum (using a mean comparison such as Method 1, or an ANCOVA or regression analysis such as Method 2), we can determine the causal effect for individuals who are similar with regard to the entire set of covariates (as these are used to determine the propensity scores).</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Begin with creating five strata based on the propensity scores (for instance, use the function <code>cut()</code> in R). Each stratum should contain 20% of the (total number of) observations.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Next, compute the ACE in each stratum based on the mean difference.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subsequently, you can compute the overall ACE by taking the average of the stratum-specific ACE’s (weighted by the stratum size).
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The three methods that we considered in this lab are all based on using the propensity score, that is, the probability of being treated given the covariates. The goal of these techniques is to somehow mimic the situation we get in an RCT, where <strong>the probability of treatment is independent of the covariates</strong>. In matching, this is done by creating pairs of a treated and an untreated person who have (almost) identical propensity scores, resulting in a smaller but balanced dataset; in inverse probability weighting, this is done by weighing each person’s observation by their inverse probability of received treatment, thereby creating a balanced pseudo-population; and in subclassification this is done by creating strata based on the propensity scores such that within each stratum the covariates are balanced. In each approach, we should check whether it balances the covariates, for instance, by considering the standardized mean differences. Other options for assessing covariate imbalance are described by <span class="citation" data-cites="austin_balance_2009">Austin (<a href="#ref-austin_balance_2009" role="doc-biblioref">2009</a>)</span>.</p>
+
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-austin_balance_2009" class="csl-entry" role="listitem">
+Austin, Peter C. 2009. <span>“Balance Diagnostics for Comparing the Distribution of Baseline Covariates Between Treatment Groups in Propensity‐score Matched Samples.”</span> <em>Statistics in Medicine</em> 28 (25): 3083–3107. <a href="https://doi.org/10.1002/sim.3697">https://doi.org/10.1002/sim.3697</a>.
+</div>
 <div id="ref-schafer_average_2008" class="csl-entry" role="listitem">
 Schafer, Joseph L., and Joseph Kang. 2008. <span>“Average Causal Effects from Nonrandomized Studies: <span>A</span> Practical Guide and Simulated Example.”</span> <em>Psychological Methods</em> 13 (4): 279–313. <a href="https://doi.org/10.1037/a0014268">https://doi.org/10.1037/a0014268</a>.
 </div>
@@ -804,13 +1112,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./week3_lab_noAnswers.html" class="pagination-link" aria-label="Lab exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lab exercises</span>
+      <a href="./week4_literature.html" class="pagination-link" aria-label="Literature">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./week4_lab_noAnswers.html" class="pagination-link" aria-label="Lab exercises">
-        <span class="nav-page-text">Lab exercises</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./week5_literature.html" class="pagination-link" aria-label="Literature">
+        <span class="nav-page-text">Literature</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

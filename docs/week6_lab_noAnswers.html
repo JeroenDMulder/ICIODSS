@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Ellen L. Hamaker">
 <meta name="author" content="Jeroen D. Mulder">
 
 <title>Lab Exercises – ICIODSS (2024/25)</title>
@@ -56,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -66,8 +85,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./week3_literature.html" rel="next">
-<link href="./week2_literature.html" rel="prev">
+<link href="./week6_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -147,7 +165,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week2_literature.html">Week 2: Directed Acyclical Graphs</a></li><li class="breadcrumb-item"><a href="./week2_lab.html">Lab exercises</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week6_literature.html">Week 6: Estimating Causal Effects of Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week6_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -242,7 +260,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week2_lab.html" class="sidebar-item-text sidebar-link active">
+  <a href="./week2_lab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -334,7 +352,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week6_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week6_lab_noAnswers.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -357,27 +375,21 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reasoning-about-dags" id="toc-reasoning-about-dags" class="nav-link active" data-scroll-target="#reasoning-about-dags">Reasoning About DAGs</a>
-  <ul class="collapse">
-  <li><a href="#substance-abuse" id="toc-substance-abuse" class="nav-link" data-scroll-target="#substance-abuse">Substance Abuse</a></li>
-  <li><a href="#discrimination" id="toc-discrimination" class="nav-link" data-scroll-target="#discrimination">Discrimination</a></li>
+  <li><a href="#structural-relations-truth" id="toc-structural-relations-truth" class="nav-link active" data-scroll-target="#structural-relations-truth">Structural Relations (truth)</a></li>
+  <li><a href="#standard-linear-regression" id="toc-standard-linear-regression" class="nav-link" data-scroll-target="#standard-linear-regression">Standard linear regression</a></li>
+  <li><a href="#ipw-estimation" id="toc-ipw-estimation" class="nav-link" data-scroll-target="#ipw-estimation">IPW estimation</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul></li>
-  <li><a href="#simulations" id="toc-simulations" class="nav-link" data-scroll-target="#simulations">Simulations</a>
-  <ul class="collapse">
-  <li><a href="#exam-scores" id="toc-exam-scores" class="nav-link" data-scroll-target="#exam-scores">Exam Scores</a></li>
-  </ul></li>
-  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">Conclusion</a></li>
+  <li><a href="#some-useful-r-packages" id="toc-some-useful-r-packages" class="nav-link" data-scroll-target="#some-useful-r-packages">Some useful R packages</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week2_literature.html">Week 2: Directed Acyclical Graphs</a></li><li class="breadcrumb-item"><a href="./week2_lab.html">Lab exercises</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week6_literature.html">Week 6: Estimating Causal Effects of Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week6_lab_noAnswers.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Lab Exercises</h1>
-<p class="subtitle lead">Week 2: Causal Graphs</p>
+<p class="subtitle lead">Week 6: Estimating Causal Effects of Time-Varying Exposures</p>
 </div>
 
 
@@ -385,9 +397,8 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Ellen L. Hamaker </p>
              <p>Jeroen D. Mulder </p>
           </div>
   </div>
@@ -401,23 +412,55 @@ window.Quarto = {
 </header>
 
 
-<p>In these exercises, we practice with d-separation by reasoning about them, and through the use of simulations. When using simulations, we use a software program (in this case <code>R</code>) to generate data ourselves, such that we know exactly what the correct relationships are between the <span class="math inline">\(X\)</span> variable and the <span class="math inline">\(Y\)</span> that we created. We can then use fit different models with different adjustment sets to the simulated data, and check if we get the correct answer out.</p>
-<p>After these exercises, you should be able to:</p>
+<p>In this lab, you practice with Phase III of a causal research project, specifically estimating causal effects of time-varying exposures using inverse probability weighting (IPW)-estimation of the parameters in a marginal structural model (MSM). To this end, we will be using simulated data again.</p>
+<p>We will investigate the joint effect of a time-varying binary exposure (measured at three occasions) on a continuous distal outcome. Examples of this are the joint effect of</p>
 <ul>
-<li>Write down all the paths that connect a cause and an effect,</li>
-<li>classify these into causal paths, back-door paths, and remaining paths, and</li>
-<li>indicate how to close open back-door paths without blocking causal paths, or opening closed non-causal paths.</li>
+<li>church attendance on depressive symptoms (measured continuously, rather than dichotomously as in the empirical example);</li>
+<li>Ritalin use or physical punishment (by the parents) on behavioral problems (of the child);</li>
+<li>establishing a gender quota in a company on the percentage of women working there; and</li>
+<li>drug use on academic achievement in adolescents.</li>
 </ul>
-<section id="reasoning-about-dags" class="level1">
-<h1>Reasoning About DAGs</h1>
-<section id="substance-abuse" class="level2">
-<h2 class="anchored" data-anchor-id="substance-abuse">Substance Abuse</h2>
-<p>Suppose we are interested in substance abuse among adolescents. After talking to several experts, we have come up with the below DAG.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/FamilyConflict.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>DAG of adolescent substance abuse.</figcaption>
-</figure>
+<p>In all these cases, the exposure is a binary variable that may vary over time, and that may affect the final outcome at the end of the study directly or indirectly through shaping earlier realizations of the outcome variable.</p>
+<section id="structural-relations-truth" class="level2">
+<h2 class="anchored" data-anchor-id="structural-relations-truth">Structural Relations (truth)</h2>
+<p>Consider the R code below that we will use to simulate data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(C)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data for first wave</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Y1 <span class="ot">&lt;-</span> .<span class="dv">4</span><span class="sc">*</span>C <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>X1 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> N, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(C))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data for the second wave</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Y2 <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> data<span class="sc">$</span>Y1 <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> data<span class="sc">$</span>X1 <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>X2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> N, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob =</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plogis</span>(<span class="sc">-</span>.<span class="dv">8</span> <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> data<span class="sc">$</span>Y1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> data<span class="sc">$</span>X1))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data for the third wave</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Y3 <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> data<span class="sc">$</span>Y2 <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> data<span class="sc">$</span>X2 <span class="sc">+</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.8</span> <span class="sc">*</span> data<span class="sc">$</span>Y1 <span class="sc">+</span> <span class="fl">0.15</span> <span class="sc">*</span> data<span class="sc">$</span>X1 <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>X3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> N, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob =</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plogis</span>(<span class="sc">-</span>.<span class="dv">8</span> <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> data<span class="sc">$</span>Y2 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> data<span class="sc">$</span>X2 <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="fl">0.1</span> <span class="sc">*</span> data<span class="sc">$</span>Y1 <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> data<span class="sc">$</span>X1))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate the final outcome</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>final.Y <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> data<span class="sc">$</span>Y3 <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> data<span class="sc">$</span>X3 <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> data<span class="sc">$</span>Y2 <span class="sc">+</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            <span class="fl">0.15</span> <span class="sc">*</span> data<span class="sc">$</span>X2 <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data file</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           C         Y1 X1          Y2 X2          Y3 X3    final.Y
+1  1.0626695  1.3713922  1  1.83360554  1  1.28772042  0  2.4090909
+2  1.1068287 -0.3410715  0 -0.01672163  0 -0.09586087  1 -0.3320032
+3  1.6412643 -0.7760524  1 -0.56287359  1 -0.45560638  1 -1.4827753
+4 -1.0570630 -0.5470894  0  2.36579759  0 -0.49187160  0  1.8153926
+5  0.5624765 -0.6420226  1  0.03383899  0  0.57995739  0 -0.9340556
+6  1.4811695  1.6715681  1 -1.23573787  1 -0.03546906  0 -0.8617581</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -425,336 +468,276 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Write down all the paths that connect parental alcohol use (<span class="math inline">\(PAU\)</span>) to adolescent substance abuse (<span class="math inline">\(ASA\)</span>).
+Draw the causal DAG that is encode in the R code above.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The following paths connect <span class="math inline">\(PAU\)</span> and <span class="math inline">\(ASA\)</span>:</p>
-<ul>
-<li><span class="math inline">\(PAU \rightarrow ASA\)</span> (direct causal effect)</li>
-<li><span class="math inline">\(PAU \rightarrow FC \rightarrow ASA\)</span> (indirect causal effect)</li>
-<li><span class="math inline">\(PAU \rightarrow FC \rightarrow AD \rightarrow ASA\)</span> (indirect causal effect)</li>
-<li><span class="math inline">\(PAU \rightarrow AD \rightarrow ASA\)</span> (indirect causal effect)</li>
-<li><span class="math inline">\(PAU \rightarrow AD \leftarrow FC \rightarrow ASA\)</span> (noncausal path, blocked by <span class="math inline">\(AD\)</span>)</li>
-</ul>
+
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Would it help or harm to control for family conflict (<span class="math inline">\(FC\)</span>)?
+Indicate which causal paths there are from <span class="math inline">\(X_{1}\)</span> to <span class="math inline">\(Y_{4}\)</span> and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of <span class="math inline">\(X_{1}\)</span> on <span class="math inline">\(Y_{4}\)</span>.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This would be harmful, as it would block the causal paths <span class="math inline">\(PAU \rightarrow FC \rightarrow ASA\)</span> (indirect causal effect) and <span class="math inline">\(PAU \rightarrow FC \rightarrow AD \rightarrow ASA\)</span> (indirect causal effect). We would thus create over-control bias due to conditioning on a mediator.</p>
+
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Would it help or harm to control for adolescent depression (<span class="math inline">\(AD\)</span>)?
+Indicate which causal paths there are from <span class="math inline">\(X_{2}\)</span> to <span class="math inline">\(Y_{4}\)</span> and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of <span class="math inline">\(X_{2}\)</span> on <span class="math inline">\(Y_{4}\)</span>.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This would be harmful, as it would block the following causal paths:</p>
-<ul>
-<li><span class="math inline">\(PAU \rightarrow AD \rightarrow ASA\)</span> (indirect causal effect)</li>
-<li><span class="math inline">\(PAU \rightarrow FC \rightarrow AD \rightarrow ASA\)</span> (indirect causal effect)</li>
-</ul>
-<p>Furthermore, it would open this currently blocked non-causal path:</p>
-<ul>
-<li><span class="math inline">\(PAU \rightarrow AD \leftarrow FC \rightarrow ASA\)</span> (noncausal path, blocked by <span class="math inline">\(AD\)</span>)</li>
-</ul>
-<p>We would thus introduce two forms of bias: Over-control bias due to conditioning on a mediator, and collider bias due to conditioning on a collider.</p>
+
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Suppose that we are interested in the causal effect of adolescent depression (<span class="math inline">\(AD\)</span>) on adolescent substance abuse (<span class="math inline">\(ASA\)</span>). Based on the DAG above, should we or should we not control for parental alcohol use (<span class="math inline">\(PAU\)</span>) and/or family conflict (<span class="math inline">\(FC\)</span>)?
+Indicate which causal paths there are from <span class="math inline">\(X_{3}\)</span> to <span class="math inline">\(Y_{4}\)</span> and that do not go through later exposures. Based on the population parameter values in the R code to generate the data, compute what the true controlled direct effect is of <span class="math inline">\(X_{3}\)</span> on <span class="math inline">\(Y_{4}\)</span>.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>First we need to write down the paths that connect <span class="math inline">\(AD\)</span> to <span class="math inline">\(ASA\)</span>:</p>
-<ul>
-<li><span class="math inline">\(AD \rightarrow ASA\)</span> (causal path)</li>
-<li><span class="math inline">\(AD \leftarrow FC \rightarrow ASA\)</span> (open back-door)</li>
-<li><span class="math inline">\(AD &lt;- FC &lt;- PAU -&gt; ASA\)</span> (open back-door)</li>
-<li><span class="math inline">\(AD &lt;- PAU -&gt; FC -&gt; ASA\)</span> (open back-door)</li>
-<li><span class="math inline">\(AD &lt;- PAU -&gt; ASA\)</span> (open back-door)</li>
-</ul>
-<p>To close all four open back-door paths, we should condition on both <span class="math inline">\(PAU\)</span> and <span class="math inline">\(FC\)</span>. Neither of these is a collider on any of the paths, so there is no harm when conditioning on them.</p>
+
 </div>
 </div>
 </div>
 </section>
-<section id="discrimination" class="level2">
-<h2 class="anchored" data-anchor-id="discrimination">Discrimination</h2>
-<p>Let’s consider a real-world example from the online book The Mixtape by Scott Cunningham. It is based on the question whether there is gender discrimination in labor markets. Specifically, it focuses on the criticism that Google would underpay female employees, by showing a gender pay gap. Google responded by saying that the difference between males and females in pay disappear once differences in occupation are accounted for.</p>
-<p>Cunningham raises the following question:</p>
-<blockquote class="blockquote">
-<p>“But what if one of the ways gender discrimination creates gender disparities in earnings is through occupational sorting? If discrimination happens via the occupational match, than naïve contrasts of wages by gender controlling for occupational characteristics will likely understate the presence of discrimination in the marketplace.”</p>
-</blockquote>
-<p>Cunningham also presents a DAG for this problem, which is displayed below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/Google.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>A DAG of gender discrimination regarding earnings.</figcaption>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<section id="standard-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="standard-linear-regression">Standard linear regression</h2>
+<p>We want to estimate the effect of exposure over occasions 1 to 3 on an end-of-study outcome <span class="math inline">\(Y_{4}\)</span>. The previous measures of <span class="math inline">\(Y\)</span> can be regarded as time-varying covariates.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What is the causal effect of discrimination (<span class="math inline">\(D\)</span>) on earning (<span class="math inline">\(E\)</span>)?
+For <span class="math inline">\(Y_{1}\)</span>, <span class="math inline">\(Y_{2}\)</span>, and <span class="math inline">\(Y_{3}\)</span>, discuss whether one should control for them, or not.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>There are two causal paths:</p>
-<ul>
-<li><span class="math inline">\(D \rightarrow E\)</span> (direct causal path)</li>
-<li><span class="math inline">\(D \rightarrow O \rightarrow E\)</span> (indirect causal path)</li>
-</ul>
+
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<p>Before we consider a more sophisticated approach to this problem, we begin with considering two simpler models. Each of these is associated with a specific form of bias in estimating the causal effect of the time-varying exposure on <span class="math inline">\(Y_{4}\)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What happens when we condition on occupation (<span class="math inline">\(O\)</span>), like Google did in their reply? Does it provide a less or a more biased estimate of the effect of discrimination on earnings?
+Run a regression model with the time-varying covariates included.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Conditioning on <span class="math inline">\(O\)</span> blocks the indirect causal path <span class="math inline">\(D \rightarrow O \rightarrow E\)</span>. Hence, it helps to get us the direct effect of discrimination, which does not operate through occupation. This is perhaps in line with what some may consider the right comparison: Correcting for occupation is a way to see whether men and women with the same job receive the same salary or not. However, according to this DAG, there may also be an indirect effect of discrimination (i.e., women are hired into other kinds of jobs than men; this could be a case of discrimination in the company, or perhaps this selection process already occurs during one’s education). By focusing only on the direct effect of discrimination on salary, we can see whether the company should raise the salary of women to create (more, but not necessarily total) fairness across the sexes.</p>
-<p>But there is another problem that arises here. Conditioning on occupation actually opens the path <span class="math inline">\(D \rightarrow O \leftarrow A \rightarrow E\)</span> which will introduces collider bias. While abilities and being female (and discrimination) are independent of each other, by conditioning on occupation, they become dependent, and it thus leads to a non-causal association between discrimination and earnings.</p>
-<p>Hence, conditioning on occupation is not giving us the right answer, even if we are sure we are only interested in the direct effect of discrimination on earnings (and not on indirect effects operating through occupation).</p>
-<p>The only solution then is to make sure we also get a measure of ability, such that we can close this opened backdoor path and thereby avoid the collider bias that arises when conditioning on occupation.</p>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Run a regression model without the time-varying covariates.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compare the results of these two models.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section>
+<section id="ipw-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="ipw-estimation">IPW estimation</h2>
+<p>We will now use the marginal structural model as described by <span class="citation" data-cites="vanderweele_causal_2016">VanderWeele, Jackson, and Li (<a href="#ref-vanderweele_causal_2016" role="doc-biblioref">2016</a>)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+First, compute the propensity score (i.e., the probability of receiving exposure) at wave 1, wave 2, and 3 <em>using logistic regression</em>. For each of these, you should include all prior versions of <span class="math inline">\(X\)</span> and the covariate <span class="math inline">\(Y\)</span>, and all time-invariant (or baseline) covariates (here <span class="math inline">\(C\)</span>).
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Note that strictly speaking, for this particular model (as shown in the DAG), we would not need to include C to estimate the propensity scores at wave 2 and wave 3.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain why not, and whether it matters that we include it here.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Make histograms for the propensity scores of the treated and the untreated at wave 2 and wave 3. What does this show?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the propensity scores at each wave</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>M<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),<span class="dv">1</span>,<span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(M)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>{   k <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, <span class="at">select =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"X"</span>, t)))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    data<span class="fl">.1</span> <span class="ot">&lt;-</span> data[ <span class="fu">which</span>(k <span class="sc">==</span> <span class="dv">1</span>), ]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    data<span class="fl">.0</span> <span class="ot">&lt;-</span> data[ <span class="fu">which</span>(k <span class="sc">==</span> <span class="dv">0</span>), ]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ps.t<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">subset</span>(data<span class="fl">.1</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"ps"</span>, t)))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    ps.t<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">subset</span>(data<span class="fl">.0</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"ps"</span>, t)))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    hist0 <span class="ot">&lt;-</span> <span class="fu">hist</span>(<span class="fu">as.numeric</span>(ps.t<span class="fl">.1</span>[[<span class="dv">1</span>]]), <span class="at">breaks=</span><span class="dv">30</span>, <span class="at">plot=</span><span class="cn">FALSE</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    hist1 <span class="ot">&lt;-</span> <span class="fu">hist</span>(ps.t<span class="fl">.0</span>[[<span class="dv">1</span>]], <span class="at">breaks=</span><span class="dv">30</span>, <span class="at">plot=</span><span class="cn">FALSE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Propensity scores at wave "</span>, t)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>( hist1, <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab=</span><span class="st">"Propensity score"</span>, <span class="at">main=</span>title)  </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>( hist0, <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">add=</span>T) </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It shows that the distribution of the propensity scores for the treated and the untreated overlap well (assumption of positivity), at each occasion.</p>
+</div>
+</div>
+</div>
+<p>Recall that the <em>unstabilized</em> inverse probability weights at a specific time point are computed as <span class="math display">\[
+W_{it} = X_{it} \frac{1}{P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}]} + (1 - X_{it})\frac{1}{(1 - P[X_{it} = 1 | \bar{L}_{it}, \bar{A}_{i,t - 1}])}.
+\]</span> From these wave-specific weights, compute the overall weight, by taking the product of the wave-specific weights.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compute the weights.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+<p>Finally, we can run a regression model with <span class="math inline">\(Y_{4}\)</span> as the outcome variable, and <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, and <span class="math inline">\(Y_1\)</span> as its predictors, using the total weights computed above.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estimate the parameters of the MSM.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+
 </div>
 </div>
 </div>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The reasoning exercises above have illustrated the use of DAGs and the back-door criterion for deciding which covariates to condition on, to identify a particular causal effect. A few highlights of this are:</p>
-<ol type="1">
-<li>There may be multiple sets of covariates (known as <em>adjustment sets</em>) that one can condition on to block open backdoor paths. We can use this kind of information when designing a study, to decide what variables to measure. It may be the case that one set is smaller than another, but that it contains a variable that is hard or impossible to measure; in that case we may choose to focus on a different, larger set, because that is more practical in the end.</li>
-<li>Perhaps needless to say: The set of covariates one should condition on depends on which causal effect you are looking at. So you have to be clear what you are focusing on in you DAG.</li>
-<li>As the possible gender discrimination example illustrates, DAGs can be very useful in organizing an communicating one’s ideas about reality.</li>
-</ol>
-</section>
-</section>
-<section id="simulations" class="level1">
-<h1>Simulations</h1>
-<p>The goal of this exercise is to get a feeling for how d-separation works. Specifically, we will see what happens if you do or do not condition on a confounder, a mediator, or a collider. Subsequently, we will also investigate what happens if you condition on the child of a confounder, mediator or collider.</p>
-<p>In each exercises you will simulate data according to a specific DAG; so you know what the truth is, and you can see which analysis leads to an answer that reflects the underlying truth, and which analysis leads to a biased result.</p>
-<section id="exam-scores" class="level2">
-<h2 class="anchored" data-anchor-id="exam-scores">Exam Scores</h2>
-<p>This exercises is based on an example from <a href="https://bookdown.org/csu_statistics/dsci_335_spring_2023/Causation.html#example-score-on-an-exam">Ben Prytherch</a>. It concerns the score a student receives for their exam and which factors determine this. Prytherch presents the following DAG, which shows that the score depends on both the difficulty of the exam, and the time a student studied for the exam. Moreover, the time a student studied also depends on the difficulty of the exam.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/examScores.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>A DAG of the effect of time studying on exam scores.</figcaption>
-</figure>
-</div>
-<p>Use the R-code below to simulate data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">285</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Sample size</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N) <span class="co"># Randomly generate the difficulty variable from a normal distribution</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>TS <span class="ot">&lt;-</span> <span class="dv">44</span> <span class="sc">+</span> <span class="fl">0.7</span><span class="sc">*</span>D <span class="sc">+</span> <span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># Create the `time_studying` variable </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">-</span> <span class="fl">0.8</span><span class="sc">*</span>D <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>TS <span class="sc">+</span> <span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># Create the `score` variable</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">D =</span> D, <span class="at">TS =</span> TS, <span class="at">S =</span> S)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Is there anything you notice in particular when inspecting the correlations?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Inspecting the correlations between the variables using <code>round(cor(dat), 2)</code> shows that the correlation between <code>Time_Studying</code> and <code>Score</code> is very close to zero. In a super naive interpretation one would conclude that it does not make a difference whether one studies a lot or not. However, this is of course not the full story.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Suppose we are interested in the effect of <code>Time_Studying</code> on <code>Score</code>. Should we control for <code>Difficulty</code>? Why (not)?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Yes we should, because <code>Difficulty</code> is a confounder here.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Run a regression analysis for estimating the effect of <code>Time_Studying</code> on <code>Score</code>, and think yourself about whether you should additionally control for <code>Difficult</code>.
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(S <span class="sc">~</span> D <span class="sc">+</span> TS, <span class="at">data =</span> dat) <span class="co"># Run regression analysis</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit) <span class="co"># Inspect the results</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>When accounting for the confounder <code>Difficulty</code>, the effect of <code>Time_Studying</code> on <code>Score</code> is <span class="math inline">\(0.403\)</span>, which is close to the value <span class="math inline">\(0.4\)</span> with which these data were generated.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Assuming you just ran a model that included both <code>Time_Studying</code> and <code>Difficulty</code> as predictors of <code>Score</code>, now run a model that only includes <code>Time_Studying</code>. How do you interpret the results of this analysis?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(S <span class="sc">~</span> TS) <span class="co"># Run regression analysis</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit) <span class="co"># Inspect the results</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The current parameter is a biased estimate of the causal effect of <code>Time_Studying</code> on <code>Score</code>; the bias is due to the confounder <code>Difficulty</code>, which has a positive effect on <code>Time_Studying</code>, but a negative effect on <code>Score</code>. As a result, this bias is negative, and it obscures the positive causal effect of <code>Time_Studying</code> on <code>Score</code> (which we were able to correctly recover in the previous analysis).</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Suppose we are interested in the effect of <code>Difficulty</code> on <code>Score</code>. What happens if we condition on <code>Time_Studying</code>?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Time studying is a mediator here. If we condition on it, this blocks the indirect path from <code>Difficulty</code>to Score, such that we only get the direct effect of <code>Difficulty</code> on Score. If we do not condition on <code>Time_Studying</code>, we get the total effect of <code>Difficulty</code> on <code>Score</code>, so the sum of the direct and the indirect (mediated) effects.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Assuming you just ran a model that included both <code>Time_Studying</code> and <code>Difficulty</code> as predictors of Score, now run a model that only includes <code>Time_Studying</code>. How do you interpret the results of this?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>In the first model, we get the total effect of <code>Difficulty</code> on Score. It is estimated to be <span class="math inline">\(-0.520\)</span>, meaning that more higher difficulty leads to lower scores. Note however that this estimate is closer to zero than the actual direct effect with which we simulated the data, which was <span class="math inline">\(-0.8\)</span>.</p>
-<p>When considering the results from the second model, we see that when we condition on <code>Time_Studying</code>, the estimate of the direct causal effect of <code>Difficulty</code>on <code>Score</code> is <span class="math inline">\(-0.811\)</span>, which is quite close to the underlying Truth.</p>
-<p>In this case, we thus see that <code>Difficulty</code>has a negative effect on <code>Score</code>, but this is to some extent countered by the fact that <code>Difficulty</code> leads to more <code>Time_Studying</code>, which in turn increases <code>Score</code>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Suppose that we are interested in the effect of <code>Difficulty</code> on <code>Time_Studying</code>. What happens if we condition on <code>Score</code>?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Score is a child of both <code>Difficulty</code> and <code>Time_Studying</code>. Hence, conditioning on this will result in collider bias.</p>
-</div>
-</div>
-</div>
-<p>To illustrate the problem that can arise when conditioning on a collider, create a new dataset using the R code below. This time, <code>Difficulty</code> has <strong>no</strong> effect on <code>Time_Studying</code> (i.e., the effect is zero) in the data generating model.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">285</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>TS <span class="ot">&lt;-</span> <span class="dv">44</span> <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>D <span class="sc">+</span> <span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">-</span> <span class="fl">0.8</span><span class="sc">*</span>D <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>TS <span class="sc">+</span> <span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">D =</span> D, <span class="at">TS =</span> TS, <span class="at">S =</span> S)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" data-icon="false">
+<p>Compare the results from the marginal structural model to the results from the other two models.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Now run a model to estimate the effect of <code>Difficulty</code> on <code>Time_Studying</code>, once without conditioning on <code>Score</code>, and once while conditioning on <code>Score</code>. How do you interpret the results?
+What does this show you?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This result shows that when we just look at the effect of <code>Difficulty</code> on <code>Time_Studying</code>, we find a zero effect (the estimate is <span class="math inline">\(0.022\)</span>). However, if we condition on <code>Score</code>, then the effect of <code>Difficulty</code> on <code>Time_Studying</code> becomes positive; it is then estimated to be <span class="math inline">\(0.281\)</span>.</p>
-<p>The latter result can be understood as follows: Within a group of students who score similar on the exam, if the difficulty was higher for a specific student, this student also tended to study longer, while if the difficulty of the exam was lower for a specific student, this student would study less than the average student in this group.</p>
+
 </div>
 </div>
 </div>
+<p>Why IPW estimation of an MSM works, and how it accounts for time-dependent confounding without blocking the relevant mediation paths, is not easy to see, or to even get some intuition for. But recall that in week 2 we learned that by using IPW, we create a balanced sample (also sometimes referred to as a <em>pseudo population</em>) that, within a certain level of the confounder, has an equal number of individuals in each exposure group. That implied that in this balance sample, we have <span class="math inline">\(P[X_{it} = 1] = 0.5\)</span> for everyone. This balancing property of IPW is therefore a way to mimic an RCT. Balancing thus removes the arrows that point into the exposure nodes (again, as would be the case in an RCT).</p>
 </section>
-</section>
-<section id="conclusion-1" class="level1">
-<h1>Conclusion</h1>
-<p>DAGs are extremely useful for determining which variables we should condition on if we want to determine the causal effect of one variable on another. Yet, what combination of covariates forms a valid adjustment set depends critically on the exact DAG we have; as soon as we add an arrow, or drop an arrow, this can change.</p>
-<p>In general, when considering a DAG, you should be able to read of the causal paths, and the back-door paths; you should be able to determine whether the back-door paths are open or closed; and you should be able to figure out what variables to condition on so to close the open paths, without opening blocked paths (or you should take further actions to close these newly opened paths).</p>
+<section id="some-useful-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="some-useful-r-packages">Some useful R packages</h2>
+<p>For these exercises we have made use of base R functions. This is helpful to get a better understanding of how IPW estimation actually works. However, there exist many useful packages that can help with assessing covariate (im)balance, and with creating inverse probability weights. I highly recommend the packages <code>cobalt</code> and <code>WeightIt</code> by Noah Greifer, as they have excellent documentation online that can help you use more advanced IPW-related techniques. You might consider using these packages for assignment 2.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-vanderweele_causal_2016" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., John W. Jackson, and Shanshan Li. 2016. <span>“Causal Inference and Longitudinal Data: <span>A</span> Case Study of Religion and Mental Health.”</span> <em>Social Psychiatry and Psychiatric Epidemiology</em> 51 (11): 1457–66. <a href="https://doi.org/10.1007/s00127-016-1281-9">https://doi.org/10.1007/s00127-016-1281-9</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1177,14 +1160,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./week2_literature.html" class="pagination-link" aria-label="Literature">
+      <a href="./week6_literature.html" class="pagination-link" aria-label="Literature">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./week3_literature.html" class="pagination-link" aria-label="Literature">
-        <span class="nav-page-text">Literature</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

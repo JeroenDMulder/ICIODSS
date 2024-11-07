@@ -1,0 +1,47 @@
+---
+title: "Lab Exercises"
+subtitle: "Week 5: MSMs and Time-Varying Exposures"
+author: 
+- Jeroen D. Mulder
+editor: source
+bibliography: references.bib
+---
+
+The exercises in this lab will guide you through the first two phases of causal inference when studying a time-varying exposure. However, in contrast to the lectures, you will (a) work with the empirical example in @vanderweele_causal_2016; (b) consider a more complex (and also more realistic) causal DAG, which will influence our decisions across the phases; and (c) work with simulated data to get a better understanding of what joint effects are, and how inverse probability weighting estimation works. 
+
+This week is also provides important input for your assignment. Please make sure that by the end of this lab, you have read the assignment. That way, you have the opportunity to ask for clarification if anything is unclear. 
+
+# Phase I: Formulation
+@vanderweele_causal_2016 use an empirical example to illustrate the use of marginal structural models (MSMs) and inverse-probability-weighting (IPW) estimation. Re-read the section ``Results: empirical illustrations'', and answer the below questions. Additionally, look up the empirical study upon which this example is based; You need this study to find answers to some of the questions. Finally, and perhaps most importantly, challenge yourself. Really try to come up with a comprehensive answer to the questions before you look at the answers. That way, you test if you truly grasp the contents, and whether or not you can apply it to new problems. 
+
+::: {.callout-note collapse="true" icon=false}
+## Formulate the causal research question of @vanderweele_causal_2016 in words. In your answer, specify the target population, the exposures, the exposure contrast, and the outcome measure. Do @vanderweele_causal_2016 focus on specific regimes? 
+
+Generally speaking, @vanderweele_causal_2016 investigate the bidirectional relationship between religious service attendance and depression. More specifically, they assess the joint effect of religious service attendance in 1996 and in 2000 on depression in 2004; and the joint effect of depression in 1996 and 2000 on religious service attendance in 2004. For the rest of this exercise, we focus on religious service attendance as the exposure, and depression as the outcome. More information can be found in the study by @li_religious_2016. 
+
+Both @vanderweele_causal_2016 and @li_religious_2016 are implicit about the target population. Based on their sample, it can be inferred that their target population is female nurses across the United States. @li_religious_2016 states: "We, therefore, considered analyses both with and without participants who had a diagnosis of cardiovascular disease or cancer at baseline (n=19,803)". They thus considered restricting their target population to only those without diagnosis of cardiovascular disease or cancer. Later, @li_religious_2016 describes how the analyses are repeated, but restricted to either only Catholics or Protestants, thereby further specifying a specific target population. 
+
+The outcome, depression, was defined as ``(...) either self-reported physician or clinician-diagnosed depression, or use of antidepressant medications, or depressive symptoms CESD-10 measure above 10.''. The CESD-10 is a 10-item Likert scale screening questionnaire assessing depressive symptoms *in the past week*. It was measured in 2004, that is eight years after the first exposure-measurement (in 1996), and four years after the second exposure-measurement (in 2000). 
+
+The exposure was self-reported service attendance using the question: "How often in the past year do you attend religious services?" Answer categories were "More than once per week", "Once per week", "Less than once per week", and "Never or almost never". 
+
+@vanderweele_causal_2016 and @li_religious_2016 do not express interest in any particular exposure regime. Therefore, there is also no explicit exposure contrast.
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Is this research question about an ACE, ACE$_{1}$, or ACE$_{0}$? Reformulate the research question for those ACE$_{...}$'s left over. 
+
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Formulate the marginal structural model that is used. Tip: Consider how many times the exposure was measured, and the measurement level of the exposure and outcome; also see Table 2 in @vanderweele_causal_2016.
+
+:::
+
+
+::: {.callout-note collapse="true" icon=false}
+## Is this a saturated MSM? If yes, what is the advantage/disadvantage of a saturated MSM? If no, what is the advantage/disadvantage of an unsaturated MSM? Tip: Think about the expected potential outcomes that exist, and compare this to the number of parameters in the MSM. 
+
+:::
