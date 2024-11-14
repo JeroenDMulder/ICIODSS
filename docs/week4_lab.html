@@ -86,6 +86,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./week5_literature.html" rel="next">
+<link href="./week4_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -165,9 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      ICIODSS (2024/25)
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_lab.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -308,7 +308,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week4_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week4_lab.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -389,7 +389,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week4_literature.html">Week 4: Rubin Causal Model (Part II)</a></li><li class="breadcrumb-item"><a href="./week4_lab.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Lab Exercises</h1>
 <p class="subtitle lead">Week 4: Rubin Causal Model (Part II)</p>
@@ -422,7 +422,7 @@ window.Quarto = {
 <p>In this practical you will make use of various R packages. If you haven’t already, install the packages <code>tableone</code>, <code>MatchIt</code>, and <code>survey</code> using <code>install.packages(c("tableone", "MatchIt", "survey"))</code>.</p>
 <p>Load the data, which are in the data file called <code>SchaferKangData.dat</code>. Take a look at the data set. See Table 3 in <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> for a description of the variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"SchaferKangData.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">5879167</span><span class="sc">\\</span><span class="st">surfdrive</span><span class="sc">\\</span><span class="st">01 Project</span><span class="sc">\\</span><span class="st">ICIODSS</span><span class="sc">\\</span><span class="st">week 3</span><span class="sc">\\</span><span class="st">SchaferKangData.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are various alternative techniques that are all based on using the propensity scores: This is an individual’s probability of treatment based on their scores on the covariates, <span class="math inline">\(P(X=1|Z=Z)\)</span>. If we know how likely a person was to receive treatment, we can use this information to mimic a randomized controlled trial (in which everyone has the same probability of receiving treatment). <span class="citation" data-cites="schafer_average_2008">Schafer and Kang (<a href="#ref-schafer_average_2008" role="doc-biblioref">2008</a>)</span> consider three common techniques for this:</p>
@@ -1222,6 +1222,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week4_literature.html" class="pagination-link" aria-label="Literature">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./week5_literature.html" class="pagination-link" aria-label="Literature">
+        <span class="nav-page-text">Literature</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

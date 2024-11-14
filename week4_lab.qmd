@@ -16,7 +16,7 @@ In this practical you will make use of various R packages. If you haven’t alre
 Load the data, which are in the data file called `SchaferKangData.dat`. Take a look at the data set. See Table 3 in @schafer_average_2008 for a description of the variables.
 
 ```{r setup, eval = FALSE}
-df <- read.table("SchaferKangData.dat", header = TRUE)
+df <- read.table("C:\\Users\\5879167\\surfdrive\\01 Project\\ICIODSS\\week 3\\SchaferKangData.dat", header = TRUE)
 head(df, n = 10)
 ```
 There are various alternative techniques that are all based on using the propensity scores: This is an individual’s probability of treatment based on their scores on the covariates, $P(X=1|Z=Z)$. If we know how likely a person was to receive treatment, we can use this information to mimic a randomized controlled trial (in which everyone has the same probability of receiving treatment). @schafer_average_2008 consider three common techniques for this:
@@ -29,7 +29,6 @@ Regardless of the choise of method, we need to estimate propensity scores first.
 
 ## Estimate Propensity Scores
 To compute a propensity score, run a logistic regression model in which the treatment variable $X$ (which has values 0 and 1) is the outcome variable, and the covariates are the predictors. Make sure to save the probability for each person for scoring 1 on X (here `DIET`). You can use the `glm()` function from the stats package for this, setting the `family` argument to `family = binomial()`. 
-
 
 
 ::: {.callout-note icon=false collapse=true}

@@ -40,7 +40,7 @@ website:
         contents:
           - href: week4_literature.qmd
             text: "Literature"
-          - href: week4_lab_noAnswers.qmd
+          - href: week4_lab.qmd
             text: "Lab exercises"
       - section: "Week 5: MSMs and Time-Varying Exposures"
         contents: 
