@@ -4,7 +4,7 @@ subtitle: "Introduction to Causal Inference using Observational Data in the Soci
 editor: source
 ---
 
-The purpose of this assignment is for you to demonstrate knowledge of the phases for empirical causal research, and the ability to apply this knowledge to longitudinal, nonexperimental empirical data data. This assignment is done in groups of 3 to 4 students, and should result in a presentation in which you explain your causal inference process, the decisions that were made throughout, and the analysis results. The assignment, grading scheme, and deadlines are explained in more detail below. 
+The purpose of this assignment is for you to demonstrate knowledge of the phases for empirical causal research, and the ability to apply this knowledge to longitudinal, nonexperimental empirical data data. This assignment is done in groups of 3 to 4 students, and should result in a presentation in which you explain your causal inference process, the decisions that were made throughout, and the analysis results. The assignment and deadlines are explained in more detail below. 
 
 ## Preparation
 In the assignment, you are asked to formulate a causal research question concerning joint effects (Phase I), identify the causal estimand (Phase II), and estimate the effect of interest (Phase III). For phases II and III, you need an empirical dataset. Therefore, you should first find longitudinal, nonexperimental empirical data. These data must include:
@@ -23,7 +23,7 @@ Some possible sources for empirical data are listed below, but you are free to u
 You are advised to be somewhat "smart"/practical in your choice of dataset. For example, in practice, ideally, you come up with a well-defined research question before you collect data. However, for this assignment you need to make sure that you can actually obtain empirical data that can be used for investigating the research question. Therefore, you are advised to first explore some of the freely available empirical data that exist, before finalizing a causal research question. Furthermore, it might be advisable to find a dataset that includes at least one or two of the covariates that you should adjust for (based on reasoning in Phase II) in your statistical analyses. 
 
 ## Assignment
-For this assignment, go through all the phases of a causal research project. You do this based on a causal research question that you formulate in Phase I, and using the empirical dataset that you selected. In the end, you have to present your progress throughout these phases (and the decisions that you made herein) in a 15-minute presentation (including 2 minutes of questions and answers). Below you can find the steps that you should take to complete the assignment. 
+For this assignment, go through all the phases of a causal research project. You do this based on a causal research question that you formulate in Phase I, and using the empirical dataset that you selected. In the end, you have to present your progress throughout these phases (and the decisions that you made herein) in a 30-minute presentation (including 5 minutes of questions and answers). Below you can find the steps that you should take to complete the assignment. 
 
 ### Phase I: Formulation
 Formulate a well-defined causal research question concerning joint effects and an end-of-study outcome. Formalize this question as a contrast of potential outcomes, and as a marginal structural model (MSM). You should additionally specify:
@@ -74,25 +74,25 @@ This assignment should result in a presentation in which you (and your group mem
  
 | What                                      | Time (min.) |
 |-------------------------------------------|:-----------:|
-| **Phase I: Introduce your research question** | 2     |
+| **Phase I: Introduce your research question** | 3     |
 | \ \ Target population                   |             | 
 | \ \ ACE, ACE$_{0}$, or ACE$_{1}$?       |             | 
 | \ \ Exposure regimes                    |             | 
 | \ \ Outcome                             |             | 
 | \ \ MSM                                 |             | 
-| **Phase II: Assess identifiability**    | 4           | 
+| **Phase II: Assess identifiability**    | 8           | 
 | \ \ Exchangeability                     |             |
 | \ \ Consistency                         |             |
 | \ \ Positivity                          |             | 
-| **Phase III: Estimate effect of interest**  | 7       | 
+| **Phase III: Estimate effect of interest**  | 14       | 
 | \ \ Initial imbalance                   |             |
 | \ \ Estimate propensity scores          |             |
 | \ \ Post-balancing imbalance            |             | 
 | \ \ Estimate causal effect              |             | 
-| **Q&A**                                 | 2          |
+| **Q&A**                                 | 5          |
 
 ## Deadlines
-Each group presents their assignment during the meeting on Thursday December 12th. All group members should be present, and take part in the actual presentation (unless otherwise agreed with the course coordination). Additionally, each group should send an email (1 per group) to the teacher, containing (a) the slides of the presentation, (b) annotated and executable R code that was used to analyze the data, and (c) names and student numbers of all the group members. The deadline for this email is Thursday December 12th, at 09:00.
+Each group presents their assignment during the meeting on Thursday December 12th. All group members should be present, and take part in the actual presentation (unless otherwise agreed with the course coordinator). Additionally, each group should send an email (1 per group) to the teacher, containing (a) the slides of the presentation, (b) annotated and executable R code that was used to analyze the data, and (c) names and student numbers of all the group members. The deadline for this email is Thursday December 12th, at 09:00.
 
 Group members are expected to work together on the assignment during the lab meetings (where they are able to ask the lab teacher questions), and in between these meetings as well (please arrange meetings for this yourself).
 
