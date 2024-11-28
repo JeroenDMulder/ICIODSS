@@ -46,13 +46,13 @@ website:
         contents: 
           - href: week5_literature.qmd
             text: "Literature"
-          - href: week5_lab_noAnswers.qmd
+          - href: week5_lab.qmd
             text: "Lab exercises"
       - section: "Week 6: Estimating Causal Effects of Time-Varying Exposures"
         contents:
           - href: week6_literature.qmd
             text: "Literature"
-          - href: week6_lab_noAnswers.qmd
+          - href: week6_lab.qmd
             text: "Lab exercises"
       - text: -------
       - href: assignment.qmd

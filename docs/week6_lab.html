@@ -85,6 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./week6_literature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -164,9 +165,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      ICIODSS (2024/25)
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week6_literature.html">Week 6: Estimating Causal Effects of Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week6_lab.html">Lab exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -330,7 +329,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week5_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week5_lab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -353,7 +352,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./week6_lab_noAnswers.html" class="sidebar-item-text sidebar-link">
+  <a href="./week6_lab.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab exercises</span></a>
   </div>
 </li>
@@ -387,7 +386,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week6_literature.html">Week 6: Estimating Causal Effects of Time-Varying Exposures</a></li><li class="breadcrumb-item"><a href="./week6_lab.html">Lab exercises</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Lab Exercises</h1>
 <p class="subtitle lead">Week 6: Estimating Causal Effects of Time-Varying Exposures</p>
@@ -454,13 +453,13 @@ window.Quarto = {
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data file</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            C         Y1 X1         Y2 X2          Y3 X3    final.Y
-1 -0.93891139 -0.9813737  1  1.2927210  0 -0.70225289  1  3.5111481
-2 -0.65777639  1.4863397  1  0.5375852  0  0.76580557  0  0.1796819
-3  0.01228972 -1.0250014  0 -0.5112924  0  0.62981299  1 -0.8767476
-4  1.29115243  0.2323792  1  0.9278508  1  0.38993507  0 -0.6887293
-5  1.04120155  1.3929865  0  1.2199803  0  1.92353304  1  1.2753789
-6  0.47535474  0.2651469  0 -1.7079882  0  0.01658276  0 -0.9407413</code></pre>
+<pre><code>            C         Y1 X1          Y2 X2         Y3 X3    final.Y
+1 -0.87633315 -1.4806184  0 -1.46178147  0 -0.5114571  0 -2.1686494
+2  0.27913948  1.8186766  1 -0.81742122  1 -0.2776076  1 -1.7144563
+3 -1.15251785 -2.0018414  1  1.02440923  1 -2.6799003  1  0.8825598
+4 -0.27237616  0.8969734  0 -1.12293641  0  1.0074857  0 -0.2845360
+5 -0.49594346 -0.9711098  0  1.27550496  0  0.1448950  0  0.9996981
+6  0.01591384  1.1221364  1  0.08303329  1  1.9551249  0  0.2891130</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -626,22 +625,22 @@ glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1 + Y2 + Y3, data = data)
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.0013260  0.0017577  -0.754    0.451    
-C           -0.0009425  0.0011685  -0.807    0.420    
-X1           0.0016553  0.0023092   0.717    0.473    
-X2           0.1492284  0.0021764  68.565   &lt;2e-16 ***
-X3           0.2993212  0.0021469 139.420   &lt;2e-16 ***
-Y1          -0.0003125  0.0012905  -0.242    0.809    
-Y2           0.8013126  0.0010098 793.544   &lt;2e-16 ***
-Y3           0.0994762  0.0009991  99.566   &lt;2e-16 ***
+(Intercept) -0.0037536  0.0017595  -2.133   0.0329 *  
+C           -0.0014612  0.0011701  -1.249   0.2117    
+X1           0.0015525  0.0023130   0.671   0.5021    
+X2           0.1515553  0.0021778  69.589   &lt;2e-16 ***
+X3           0.2995526  0.0021469 139.530   &lt;2e-16 ***
+Y1          -0.0003705  0.0012898  -0.287   0.7739    
+Y2           0.7984385  0.0010095 790.925   &lt;2e-16 ***
+Y3           0.1002976  0.0010013 100.169   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 1.000202)
+(Dispersion parameter for gaussian family taken to be 1.000503)
 
-    Null deviance: 1806034  on 999999  degrees of freedom
-Residual deviance: 1000194  on 999992  degrees of freedom
-AIC: 2838089
+    Null deviance: 1803823  on 999999  degrees of freedom
+Residual deviance: 1000495  on 999992  degrees of freedom
+AIC: 2838390
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -672,20 +671,20 @@ glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1, data = data)
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.053501   0.002264 -23.632   &lt;2e-16 ***
-C           -0.002357   0.001506  -1.565    0.118    
-X1           0.229211   0.002951  77.678   &lt;2e-16 ***
-X2           0.139854   0.002778  50.343   &lt;2e-16 ***
-X3           0.462025   0.002755 167.710   &lt;2e-16 ***
-Y1           0.156642   0.001299 120.581   &lt;2e-16 ***
+(Intercept) -0.053380   0.002264 -23.578   &lt;2e-16 ***
+C           -0.001817   0.001506  -1.206    0.228    
+X1           0.226783   0.002953  76.808   &lt;2e-16 ***
+X2           0.145515   0.002776  52.411   &lt;2e-16 ***
+X3           0.459521   0.002752 166.962   &lt;2e-16 ***
+Y1           0.158123   0.001294 122.155   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 1.661599)
+(Dispersion parameter for gaussian family taken to be 1.658499)
 
-    Null deviance: 1806034  on 999999  degrees of freedom
-Residual deviance: 1661589  on 999994  degrees of freedom
-AIC: 3345665
+    Null deviance: 1803823  on 999999  degrees of freedom
+Residual deviance: 1658489  on 999994  degrees of freedom
+AIC: 3343798
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -897,19 +896,19 @@ glm(formula = final.Y ~ X1 + X2 + X3 + Y1, data = data, weights = ipw.123)
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.003449   0.002583  -1.335    0.182    
-X1           0.259540   0.002583 100.487   &lt;2e-16 ***
-X2           0.175114   0.002583  67.800   &lt;2e-16 ***
-X3           0.301317   0.002583 116.663   &lt;2e-16 ***
-Y1           0.159260   0.001200 132.669   &lt;2e-16 ***
+(Intercept) -0.002506   0.002581  -0.971    0.332    
+X1           0.258699   0.002580 100.286   &lt;2e-16 ***
+X2           0.181308   0.002580  70.285   &lt;2e-16 ***
+X3           0.299531   0.002580 116.115   &lt;2e-16 ***
+Y1           0.161735   0.001195 135.369   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.34075)
+(Dispersion parameter for gaussian family taken to be 13.31266)
 
-    Null deviance: 13953502  on 999999  degrees of freedom
-Residual deviance: 13340685  on 999995  degrees of freedom
-AIC: 3558437
+    Null deviance: 13935108  on 999999  degrees of freedom
+Residual deviance: 13312594  on 999995  degrees of freedom
+AIC: 3558322
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -921,20 +920,20 @@ glm(formula = final.Y ~ C + X1 + X2 + X3 + Y1, data = data, weights = ipw.123)
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.003449   0.002583  -1.336    0.182    
-C           -0.000265   0.001391  -0.190    0.849    
-X1           0.259540   0.002583 100.487   &lt;2e-16 ***
-X2           0.175114   0.002583  67.800   &lt;2e-16 ***
-X3           0.301318   0.002583 116.663   &lt;2e-16 ***
-Y1           0.159351   0.001293 123.280   &lt;2e-16 ***
+(Intercept) -0.002507   0.002581  -0.971    0.331    
+C           -0.001811   0.001388  -1.304    0.192    
+X1           0.258697   0.002580 100.286   &lt;2e-16 ***
+X2           0.181301   0.002580  70.282   &lt;2e-16 ***
+X3           0.299539   0.002580 116.118   &lt;2e-16 ***
+Y1           0.162364   0.001288 126.017   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.34076)
+(Dispersion parameter for gaussian family taken to be 13.31265)
 
-    Null deviance: 13953502  on 999999  degrees of freedom
-Residual deviance: 13340684  on 999994  degrees of freedom
-AIC: 3558439
+    Null deviance: 13935108  on 999999  degrees of freedom
+Residual deviance: 13312572  on 999994  degrees of freedom
+AIC: 3558322
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -946,19 +945,19 @@ glm(formula = final.Y ~ C + X1 + X2 + X3, data = data, weights = ipw.123)
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.003696   0.002602   -1.42    0.155    
-C            0.063338   0.001302   48.65   &lt;2e-16 ***
-X1           0.260403   0.002602  100.06   &lt;2e-16 ***
-X2           0.175046   0.002602   67.26   &lt;2e-16 ***
-X3           0.300866   0.002602  115.61   &lt;2e-16 ***
+(Intercept) -0.002177   0.002602  -0.837    0.403    
+C            0.063674   0.001298  49.072   &lt;2e-16 ***
+X1           0.258443   0.002600  99.401   &lt;2e-16 ***
+X2           0.181363   0.002600  69.755   &lt;2e-16 ***
+X3           0.299497   0.002600 115.191   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 13.5435)
+(Dispersion parameter for gaussian family taken to be 13.52405)
 
-    Null deviance: 13953502  on 999999  degrees of freedom
-Residual deviance: 13543437  on 999995  degrees of freedom
-AIC: 3573521
+    Null deviance: 13935108  on 999999  degrees of freedom
+Residual deviance: 13523980  on 999995  degrees of freedom
+AIC: 3574075
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -1458,6 +1457,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week6_literature.html" class="pagination-link" aria-label="Literature">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
